@@ -19,6 +19,7 @@ export const Carrito = () => {
 
   return (
     <>
+    <div className="bkgr">
       <div className="carrito">
         <Container>
           <Row>
@@ -85,6 +86,7 @@ export const Carrito = () => {
             </Col>
           </Row>
         </Container>
+      </div>
       </div>
     </>
   );

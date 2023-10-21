@@ -63,7 +63,7 @@ export const Productos = () => {
   };
 
   return (
-    <Container>
+    <Container className="bkgr">
       <div className="productos">
         <div className="titulo-productos d-flex">
           <img src="./productos.png" className=" img-fluid" />

@@ -1,3 +1,8 @@
+.bkgr {
+  background-image: url('./fondo.png')!important;
+  background-size: cover;
+}
+
 .carrito {
     padding-top: 10vh;
    

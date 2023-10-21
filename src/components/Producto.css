@@ -1,3 +1,8 @@
+.producto {
+  background-image: url('./fondo.png')!important;
+  background-size: cover;
+}
+
 .producto .btn-custom {
     
     color: #fff; /* Color del texto */

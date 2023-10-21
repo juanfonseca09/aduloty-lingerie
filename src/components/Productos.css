@@ -1,3 +1,8 @@
+.bkgr {
+  background-image: url('./fondo.png')!important;
+  background-size: cover;
+}
+
 .productos {
     padding-top: 10vh;
     padding-bottom: 10vh;

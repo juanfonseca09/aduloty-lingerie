@@ -7,6 +7,7 @@ import { useForm } from "../useForm";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+import '../App.css'
 
 
 export const CheckOut = () => {
@@ -67,7 +68,7 @@ export const CheckOut = () => {
   const handleShow = () => setShow(true);
 
   return (
-    <Container>
+    <Container className="bkgr">
       <Row className="justify-content-center">
         <Col md={8}>
           <section >

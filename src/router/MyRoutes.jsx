@@ -6,11 +6,10 @@ import { Productos } from '../components/Productos';
 import { Producto } from '../components/Producto';
 import { CheckOut } from '../components/CheckOut';
 import { Preguntas } from '../components/Preguntas';
-import '../App.css'
 
 export const MyRoutes = () => {
   return (
-    <div className="bkgr">
+
         <Routes>
             <Route path='/' element={<Navigate to="/inicio"/>} />
             <Route path='/inicio' element={<Inicio/>} />
@@ -20,6 +19,6 @@ export const MyRoutes = () => {
             <Route path='/producto/:id' element={<Producto/>} />    
             <Route path='/checkout' element={<CheckOut/>} />         
         </Routes>
-    </div>
+
   )
 }

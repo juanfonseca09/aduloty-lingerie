@@ -1,3 +1,7 @@
+.bkgr {
+  background-image: url('./fondo.png')!important;
+  background-size: cover;
+}
 
 .destacado{
   padding-bottom: 10vh;

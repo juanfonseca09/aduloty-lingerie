@@ -42,6 +42,7 @@ export const Inicio = () => {
 
   return (
     <>
+    <div className="bkgr">
       <Carousel interval={8000} className="custom-carousel">
       <Carousel.Item>
         <img src="./fondo-inicio.png" alt="First slide" className="img-fluid" />
@@ -95,6 +96,7 @@ export const Inicio = () => {
             </div>
           </Link>
         </Container>
+      </div>
       </div>
     </>
   );

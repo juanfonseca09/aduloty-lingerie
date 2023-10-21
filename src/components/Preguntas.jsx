@@ -4,6 +4,7 @@ import { Container, Row } from "react-bootstrap";
 
 export const Preguntas = () => {
   return (
+    <div className="bkgr">
     <div className="preguntas">
       <Container>
         <Row>
@@ -66,6 +67,7 @@ export const Preguntas = () => {
           </p>
         </Row>
       </Container>
+    </div>
     </div>
   );
 };
