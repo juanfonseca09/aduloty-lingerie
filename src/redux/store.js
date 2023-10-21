@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { configureStore, combineReducers, compose } from "@reduxjs/toolkit"; // Agrega "compose" a las importaciones
 import cartReducer from "./cartRedux";
 
 import {
@@ -33,6 +33,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+    enhancers: [composeEnhancers], // Agrega "composeEnhancers" a los enhancers
 });
 
 export let persistor = persistStore(store);
