@@ -1,0 +1,227 @@
+
+.destacado{
+  padding-bottom: 10vh;
+  padding-top: 10vh;
+}
+
+.destacado .btn-custom {
+  color: #fff; /* Color del texto */
+  background-color: rgb(252,146,209); /* Color de fondo personalizado */
+  border-color: rgb(252,146,209); /* Color del borde */
+}
+
+.destacado .btn-custom:hover {
+  background-color: rgb(227, 109, 178); /* Cambia el color de fondo al pasar el ratón */
+  border-color: rgb(227, 109, 178); /* Cambia el color del borde al pasar el ratón */
+}
+
+.titulo-destacado {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5vh;
+}
+
+.titulo-destacado .img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.envio {
+  padding-top: 7vh;
+  padding-bottom: 5vh;
+  text-transform: uppercase;
+  text-align: center;
+  justify-content: center;
+}
+
+.envio p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.envio .hov:hover{
+  color: rgb(227, 109, 178);
+  transition: 0.15s;
+}
+
+
+
+
+.espacio{
+  padding-top: 7vh;
+}
+
+.item {
+  position: relative;
+  text-align: center;
+}
+
+.img-container {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.img-fluid {
+  max-width: 50vw; /* Ajusta el valor según tus preferencias */
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+
+.img-container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(252,146,209,0.5); /* Capa de fondo oscuro */
+  opacity: 0; /* Inicialmente oculto */
+  transition: opacity 0.3s ease;
+}
+
+.img-container::after {
+  content: ''; /* Crea un pseudo-elemento */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Ancho del borde (ajusta según necesites) */
+  height: 40%; /* Altura del borde (ajusta según necesites) */
+  background: linear-gradient(8deg,rgba(255, 255, 255, 0.7) 70%, transparent 75%);
+}
+
+
+.img-container:hover:before {
+  opacity: 1;
+}
+
+.img-container:hover .boton-container {
+  opacity: 1; 
+  transition: opacity 0.3s ease;
+}
+
+.img-container:hover .nombre {
+  color: rgb(210, 100, 160);
+  transition: 0.3s;
+}
+
+.nombre {
+  position: absolute;
+  top: 86%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000; /* Color del texto */
+  padding: 10px;
+  z-index: 1;
+}
+
+.nombre p {
+  margin: 0; /* Elimina el margen interior de los párrafos */
+}
+
+.boton-container {
+  display: flex;
+  opacity: 0;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.boton {
+  background-color: rgb(0,0,0,0.5);
+  border-radius: 50%; /* Hace que el borde sea un círculo perfecto */
+  width: 50px; /* Ajusta el ancho y alto para hacer el círculo */
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  margin: 0 10px; /* Ajusta la separación entre los botones */
+}
+
+.boton svg {
+  
+  color: #fff; /* Cambia el color según tus preferencias */
+  cursor: pointer;
+}
+.boton svg:hover {
+  
+  color: rgb(252,146,209); /* Cambia el color según tus preferencias */
+  cursor: pointer;
+}
+
+.destacado a {
+   text-decoration: none;
+}
+
+.nombre p{
+  font-size: 0.8rem!important;
+}
+
+.custom-carousel {
+  width: 100%;
+  max-height: 830px; /* Cambia este valor según tu preferencia */
+  overflow: hidden;
+}
+
+
+
+.video-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.video {
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover;
+}
+
+.carousel-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  background: linear-gradient(45deg, rgba(252, 146, 209, 0.7), rgba(252, 146, 209, 0.7));
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.carousel-text a:hover{
+  color: #fff;
+}
+
+.overlay1 {
+  background-color: rgba(252, 146, 209, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay2 {
+  background-color: rgba(0,0,0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+

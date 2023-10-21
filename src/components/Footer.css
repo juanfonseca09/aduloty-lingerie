@@ -1,0 +1,31 @@
+.footer {
+    background-color: rgb(244, 231, 238);
+}
+
+@media (max-width: 576px) and (min-width: 420px) {
+    .footer .social-ntwk {
+        margin-right: 10vh;
+    }
+  }
+  
+  @media (max-width: 420px) {
+    .footer .social-ntwk {
+        margin-right: 7vh;
+    }
+  }
+
+.footer .social {
+    color: rgb(252,146,209);
+    padding: 10px 15px;
+    background-color: rgb(244, 231, 238);
+    border: 2px solid rgb(252,146,209);
+   border-radius: 15px;
+}
+
+.footer .social:hover {
+    color: #fff;
+    
+    background-color: rgb(252,146,209);
+    transition: 500ms;
+}
+

@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300&family=Raleway:wght@300&family=Urbanist:wght@300&display=swap');
+
+*{
+    font-family: 'Urbanist','Sans Serif';
+}
+
+.bkgr {
+    background-image: url('./fondo.png')!important;
+    background-size: cover;
+}

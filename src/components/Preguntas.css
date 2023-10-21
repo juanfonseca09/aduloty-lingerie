@@ -1,0 +1,19 @@
+.preguntas {
+    
+    margin-bottom: 10vh;
+}
+.preguntas h1 {
+    font-weight: bold;
+    margin-top: 10vh;
+    color: rgb(227, 109, 178);
+    margin-bottom: 8vh;
+    text-transform: uppercase;
+    text-align: center;
+}
+.preguntas h4{
+    color: rgb(227, 109, 178);
+}
+
+.preguntas p {
+    font-weight: bold;
+}

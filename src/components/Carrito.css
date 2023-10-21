@@ -1,0 +1,47 @@
+.carrito {
+    padding-top: 10vh;
+   
+    padding-bottom: 10vh;
+}
+
+.prod-card {
+    height: 25vh;
+    display: flex;
+}
+
+.texto {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.texto > div p {
+    display: inline-block;
+    margin: 0 10px 0 0; /* Margen entre elementos */
+  }
+
+  .trash {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+   
+  }
+
+  .trash svg:hover {
+    color: rgb(227, 109, 178);
+    transition: 0.1s;
+  }
+  
+.carrito .btn-custom {
+    
+    color: #fff; /* Color del texto */
+    background-color: rgb(252,146,209); /* Color de fondo personalizado */
+    border-color: rgb(252,146,209); /* Color del borde */
+  }
+  
+ .carrito .btn-custom:hover {
+    color: #fff;
+    background-color: rgb(227, 109, 178); /* Cambia el color de fondo al pasar el ratón */
+    border-color: rgb(227, 109, 178); /* Cambia el color del borde al pasar el ratón */
+  }
