@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Col, Modal } from "react-bootstrap";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { Global } from '../Global';
 
 export const ProductsList = ({ products }) => {
   const [showModal, setShowModal] = useState(false);
@@ -27,7 +28,7 @@ export const ProductsList = ({ products }) => {
           className={index % 2 === 0 ? "item espacio" : "item"}
         >
           <div className="img-container">
-            <img src={`http://localhost:5000/api/products/get-image/${item.images[0].url}`} alt="" className="img-fluid" />
+            <img src={Global.url+`products/get-image/${item.images[0].url}`} alt="" className="img-fluid" />
             <div className="boton-container">
               <div className="boton">
                 <FaSearch size={20} onClick={() => handleSearchClick(item)} />
@@ -56,7 +57,7 @@ export const ProductsList = ({ products }) => {
                 <Modal.Body>
                   {selectedProduct && (
                     <img
-                      src={`http://localhost:5000/api/products/get-image/${selectedProduct.images[0].url}`}
+                      src={Global.url+`products/get-image/${selectedProduct.images[0].url}`}
                       alt="Imagen relacionada"
                       className="modal-image"
                     />

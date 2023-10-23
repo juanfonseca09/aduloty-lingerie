@@ -1,21 +1,41 @@
 // Carrito.jsx
 
-import React from "react";
+import React, { useState } from "react";
 import "./Carrito.css";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
-import { removeProduct } from "../redux/cartRedux";
+// import { useSelector, useDispatch } from "react-redux";
+// import { removeProduct } from "../redux/cartRedux";
 import { useNavigate } from "react-router-dom";
+import { Global } from '../Global';
 
 export const Carrito = () => {
-  const cart = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
+  // const cart = useSelector((state) => state.cart);
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [products, setProducts] = useState([])
 
-  const handleRemoveProduct = (productId) => {
-    dispatch(removeProduct(productId));
-  };
+  // const handleRemoveProduct = (productId) => {
+  //   dispatch(removeProduct(productId));
+  // };
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await axios({
+          method: 'get',
+          url: Global.url+"products",
+          withCredentials: false,
+          // params: {
+          //   access_token: SECRET_TOKEN,
+          // },
+        });
+        setProducts(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    getProducts();
+  }, []);
 
   return (
     <>
@@ -24,17 +44,17 @@ export const Carrito = () => {
         <Container>
           <Row>
             <Col md={8}>
-              {cart.products.length === 0 ? (
+              {products.length === 0 ? (
                 <div className="empty-cart">
                   <h1>El carrito está vacío</h1>
                 </div>
               ) : (
                 <div>
-                  {cart.products.map((product) => (
+                  {products.map((product) => (
                     <Card key={product._id} className="mb-2">
                       <Card.Body className="prod-card">
                         <img
-                          src={`http://localhost:5000/api/products/get-image/${product.images[0].url}`}
+                          src={Global.url+`products/get-image/${product.images[0].url}`}
                           className="img-fluid img-thumbnail"
                           alt=""
                         />

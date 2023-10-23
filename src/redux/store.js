@@ -1,39 +1,39 @@
-import { configureStore, combineReducers, compose } from "@reduxjs/toolkit"; // Agrega "compose" a las importaciones
-import cartReducer from "./cartRedux";
+// import { configureStore, combineReducers, compose } from "@reduxjs/toolkit";
+// import cartReducer from "./cartRedux";
 
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+// import {
+//   persistStore,
+//   persistReducer,
+//   FLUSH,
+//   REHYDRATE,
+//   PAUSE,
+//   PERSIST,
+//   PURGE,
+//   REGISTER,
+// } from "redux-persist";
+// import storage from "redux-persist/lib/storage";
 
-const persistConfig = {
-  key: "root",
-  version: 1,
-  storage,
-};
+// const persistConfig = {
+//   key: "root",
+//   version: 1,
+//   storage,
+// };
 
-const rootReducer = combineReducers({ cart: cartReducer });
+// const rootReducer = combineReducers({ cart: cartReducer });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+// const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
-export const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
-    enhancers: [composeEnhancers], // Agrega "composeEnhancers" a los enhancers
-});
+// export const store = configureStore({
+//   reducer: persistedReducer,
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       serializableCheck: {
+//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//       },
+//     }),
+//   enhancers: [composeEnhancers], // Agrega "composeEnhancers" a los enhancers
+// });
 
-export let persistor = persistStore(store);
+// export let persistor = persistStore(store);

@@ -3,6 +3,7 @@ import "./Productos.css";
 import { Container, Row, Dropdown } from "react-bootstrap";
 import axios from "axios";
 import { ProductsList } from "./ProductsList";
+import { Global } from '../Global';
 
 export const Productos = () => {
   const [filters, setFilters] = useState({});
@@ -14,7 +15,14 @@ export const Productos = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/products");
+        const res = await axios({
+          method: 'get',
+          url: Global.url+"products",
+          withCredentials: false,
+          // params: {
+          //   access_token: SECRET_TOKEN,
+          // },
+        });
         setProducts(res.data);
       } catch (err) {
         console.error(err);
@@ -63,7 +71,8 @@ export const Productos = () => {
   };
 
   return (
-    <Container className="bkgr">
+    <div className="bkgr">
+    <Container>
       <div className="productos">
         <div className="titulo-productos d-flex">
           <img src="./productos.png" className=" img-fluid" />
@@ -124,5 +133,6 @@ export const Productos = () => {
         </Row>
       </div>
     </Container>
+    </div>
   );
 };

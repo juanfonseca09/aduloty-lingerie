@@ -5,8 +5,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "../useForm";
 import { Card, Col, Container, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+import { Global } from '../Global';
 import '../App.css'
 
 
@@ -16,26 +17,27 @@ export const CheckOut = () => {
   const [show, setShow] = useState(false);
   const [preferenceId, setPreferenceId] = useState(null);
 
-  const cart = useSelector((state) => state.cart);
+
+  // const cart = useSelector((state) => state.cart);
 
   initMercadoPago('APP_USR-f7b6bfc8-4e97-4660-bccd-b08d01067244');
 
-  const createPreference = async () => {
-    try {
-      const items = cart.products.map((product) => ({
-        description: product.title,
-        price: product.price,
-        quantity: 1,
-      }));
+  // const createPreference = async () => {
+  //   try {
+  //     const items = cart.products.map((product) => ({
+  //       description: product.title,
+  //       price: product.price,
+  //       quantity: 1,
+  //     }));
 
-      const response = await axios.post("http://localhost:5000/api/checkout/create_preference", { items });
+  //     const response = await axios.post(Global.url+"checkout/create_preference", { items });
 
-      const { id } = response.data;
-      return id;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     const { id } = response.data;
+  //     return id;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
 
   

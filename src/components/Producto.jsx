@@ -3,9 +3,10 @@ import "./Producto.css";
 import { Button, Col, Container, Dropdown, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { addProduct } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
+// import { addProduct } from "../redux/cartRedux";
+// import { useDispatch } from "react-redux";
 import { ProductsList } from "./ProductsList";
+import { Global } from '../Global';
 
 export const Producto = () => {
   const location = useLocation();
@@ -17,14 +18,19 @@ export const Producto = () => {
   const [productImage, setProductImage] = useState(null);
   const [code, setCode] = useState(0);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:5000/api/products/find/${id}`
-        );
+        const res = await axios({
+          method: 'get',
+          url: Global.url+`products/find/${id}`,
+          withCredentials: false,
+          // params: {
+          //   access_token: SECRET_TOKEN,
+          // },
+        });
         setProduct(res.data);
 
         // Verificamos si hay imágenes antes de intentar mostrar una
@@ -32,14 +38,14 @@ export const Producto = () => {
           // Cargar la imagen después de que se defina el producto
           setProductImage(
             <img
-              src={`http://localhost:5000/api/products/get-image/${res.data.images[code].url}`}
+              src={Global.url+`products/get-image/${res.data.images[code].url}`}
               alt=""
               className="img-fluid img-pr p-5"
             />
           );
         }
 
-        const res2 = await axios.get("http://localhost:5000/api/products/");
+        const res2 = await axios.get(Global.url+"products/");
         const filteredRelatedProducts = res2.data
           .filter(
             (item) =>
@@ -61,9 +67,9 @@ export const Producto = () => {
     setColor(selectedColor);
   };
 
-  const handleClick = () => {
-    dispatch(addProduct({ ...product, color, size }));
-  };
+  // const handleClick = () => {
+  //   dispatch(addProduct({ ...product, color, size }));
+  // };
 
   return (
     <>

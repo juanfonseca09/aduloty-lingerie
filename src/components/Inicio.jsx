@@ -9,6 +9,7 @@ import { useState, useRef } from "react";
 import { ProductsList } from "./ProductsList";
 import { useEffect } from "react";
 import axios from "axios";
+import { Global } from '../Global';
 
 
 export const Inicio = () => {
@@ -20,7 +21,7 @@ export const Inicio = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/products");
+        const res = await axios.get(Global.url+"/products");
         setProducts(res.data);
       } catch (err) {
         console.error(err);
