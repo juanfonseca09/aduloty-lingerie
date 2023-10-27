@@ -1,24 +1,61 @@
 .bkgr {
-    background-image: url('./fondo.png')!important;
+    background-image: url('./fondo.png') !important;
     background-size: cover;
 }
 
-.preguntas {
-    
-    margin-bottom: 10vh;
-}
-.preguntas h1 {
-    font-weight: bold;
-    margin-top: 10vh;
-    color: rgb(227, 109, 178);
-    margin-bottom: 8vh;
-    text-transform: uppercase;
-    text-align: center;
-}
-.preguntas h4{
-    color: rgb(227, 109, 178);
+.bk2 {
+    background-color: rgba(252, 146, 209, 0.15);
 }
 
-.preguntas p {
-    font-weight: bold;
+.preguntas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5vh;
+}
+.cat-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5vh;
+    padding-bottom: 15vh;
+}
+
+.cat-image img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: 7vh
+}
+
+.preguntas .drop {
+    text-transform: uppercase;
+    background-color: rgba(252, 146, 209);
+    color: #fff;
+    margin: 7vh;
+    text-align: start; /* Centra el texto dentro del botón */
+    border-color: rgba(222, 116, 199);
+}
+
+.preguntas .drop:hover {
+    background-color: rgba(222, 116, 199);
+    color: #fff;
+    transition: 0.15s;
+}
+
+.preguntas .drop:focus {
+    background-color: rgba(222, 116, 199);
+    color: #fff;
+}
+
+.preguntas .drop-menu {
+    width: 70%;
+    background-color: rgba(292, 166, 229);
+    color: #fff;
 }

@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "../useForm";
 import { Card, Col, Container, Row } from "react-bootstrap";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { Global } from '../Global';
 import '../App.css'
@@ -18,7 +18,7 @@ export const CheckOut = () => {
   const [preferenceId, setPreferenceId] = useState(null);
 
 
-  // const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
 
   initMercadoPago('APP_USR-f7b6bfc8-4e97-4660-bccd-b08d01067244');
 

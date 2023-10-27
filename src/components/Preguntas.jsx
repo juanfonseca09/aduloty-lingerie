@@ -1,73 +1,83 @@
 import React from "react";
+import { Container, Dropdown, Row } from "react-bootstrap";
 import "./Preguntas.css";
-import { Container, Row } from "react-bootstrap";
 
 export const Preguntas = () => {
   return (
     <div className="bkgr">
-    <div className="preguntas">
-      <Container>
-        <Row>
-          <h1>Preguntas Frecuentes</h1>
-     
-          <h4>¿Es seguro comprar en regiashop.com?</h4>
-          <p>
-            En Regia Shop nos preocupamos por la seguridad, por garantizar y
-            proteger la privacidad de nuestros clientes. Por ese motivo le
-            aseguramos que el tratamiento de sus datos se efectua con altos
-            niveles de seguridad. Toda la informacion que ingreses queda
-            automaticamente protegida por SSL (Secure Sockets Layer) que
-            garantiza una transaccion 100% segura. Este sistema encripta los
-            datos suministrados y evita su uso desautorizado. Medios de pago
-          </p>
-          <h4>MERCADO PAGO</h4>
-          <p>
-            3 CUOTAS SIN INTERES con tarjetas bancarias: Visa, Mastercard,
-            NativaMastercard También podes abonar con las siguientes tarjetas:
-            Shopping, Cencosud, Cabal, Argencard, Diners, Naranja
-          </p>
-          <h4>EFECTIVO</h4>
-          <p>
-            Obtenes un 40% de descuento extra efectivo contado únicamente en el
-            local de manera presencial También podes abonar en efectivo a traves
-            de Rapipago, Pago facil, carga virtual, Provincia.NET, Red Link.
-            Tambien podes abonar con saldo precargado en Mercado Pago.
-          </p>
-          <h4>TRANSFERENCIA (solo online)</h4>
-          <p>
-            Obtenes un 40% de descuento extra abonando por transferencia o
-            deposito bancario. Recordar una vez realizado el pago enviar
-            comprobante por Whatsapp al 3413684111 para poder confirmar tu
-            compra!{" "}
-          </p>
-          <h4>¿Como se si mi pedido ya fue despachado?</h4>
-          <p>
-            Luego de recibir la confirmacion de la compra y una vez que el
-            pedido se encuentre despachado de nuestro deposito, recibiras el
-            numero de seguimiento de Oca de tu pedido al mail con el que
-            realizaste la compra. Si aun no lo recibiste, recorda revisar la
-            bandeja de correo no deseados o spam. Si elegiste retirar por
-            nuestra tienda, recibirás un Whatsapp al número registrado cuando el
-            pedido este listo parar retirar.
-          </p>
-          <h4>¿Que necesito para retirar mi pedido por la tienda?</h4>
-          <p>
-            El pedido lo puede retirar el titular de la compra (persona que se
-            registra en la web) presentando su DNI. También lo puede retirar un
-            tercero que autorice dicha persona en la págna web en el momento de
-            la compra, debe traer su DNI. En el caso de que venga otra persona
-            que no se encuentre registrada en la página web, debe traer
-            FOTOCOPIA del dni del titular de la compra sin falta.{" "}
-          </p>
-          <h4>¿Cuánto tarda en llegar el pedido?</h4>
-          <p>
-            El tiempo de entrega dependerá del tipo de envío seleccionado. En
-            general la demora es de 3 a 7 días hábiles luego del despacho del
-            producto.
-          </p>
-        </Row>
-      </Container>
-    </div>
+      <div className="bk2">
+        <Container>
+          <div className="preguntas">
+            <Row>
+              <div className="cat-image d-flex mb-3">
+                <img
+                  src="/preguntas.png"
+                  className="img-fluid"
+                  alt="categorias"
+                />
+              </div>
+              <Dropdown>
+                <Dropdown.Toggle
+                  id="dropdown-basic"
+                  variant="light"
+                  className="drop"
+                >
+                  ¿Contamos con local físico?
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="drop-menu">
+                  Por el momento no contamos con local, cada compra se puede
+                  retirar sin costo en la zona de Parque batlle. Recuerda que
+                  también contamos con envíos a domicilio.
+                </Dropdown.Menu>
+              </Dropdown>
+              <Dropdown>
+                <Dropdown.Toggle
+                  id="dropdown-basic"
+                  variant="light"
+                  className="drop"
+                >
+                  ¿Cuentan con cambios de talles?
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="drop-menu">
+                  Sí, las prendas se pueden cambiar únicamente por talles. En un
+                  lapso de tres días después de realizada la compra, se puede
+                  solicitar cambio del mismo.
+                </Dropdown.Menu>
+              </Dropdown>
+              <Dropdown>
+                <Dropdown.Toggle
+                  id="dropdown-basic"
+                  variant="light"
+                  className="drop"
+                >
+                  ¿Realizan envíos?
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="drop-menu">
+                  Sí, dentro de Montevideo se realizara mediante cadeteria,
+                  siendo entregado en el día o al próximo. Mientras que al
+                  interior enviamos mediante agencia DAC. Con una demora de 2/3
+                  días hábiles.
+                </Dropdown.Menu>
+              </Dropdown>
+              <Dropdown>
+                <Dropdown.Toggle
+                  id="dropdown-basic"
+                  variant="light"
+                  className="drop"
+                >
+                  ¿Que quiere decir artículos en preventa?
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="drop-menu">
+                  Los artículos en preventa son aquellos los cuales únicamente
+                  son pedidos una vez que se realiza el encargue. Con una demora
+                  de 7 a 10 días hábiles. Mientras que los productos en stock
+                  están disponibles para retirar y/o envíar.
+                </Dropdown.Menu>
+              </Dropdown>
+            </Row>
+          </div>
+        </Container>
+      </div>
     </div>
   );
 };

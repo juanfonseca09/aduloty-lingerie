@@ -1,39 +1,50 @@
-// import { configureStore, combineReducers, compose } from "@reduxjs/toolkit";
-// import cartReducer from "./cartRedux";
+import { configureStore } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-// import {
-//   persistStore,
-//   persistReducer,
-//   FLUSH,
-//   REHYDRATE,
-//   PAUSE,
-//   PERSIST,
-//   PURGE,
-//   REGISTER,
-// } from "redux-persist";
-// import storage from "redux-persist/lib/storage";
 
-// const persistConfig = {
-//   key: "root",
-//   version: 1,
-//   storage,
-// };
+const cartSlice = createSlice({
+  name: "cart",
+  initialState: {
+    products: [],
+    quantity: 0,
+    total: 0,
+  },
+  reducers: {
+    addProduct: (state, action) => {
+      const { code, ...product } = action.payload;
+      state.quantity += 1;
+      state.products.push({ ...product, code });
+      state.total += product.price * product.quantity;
+    },
+    removeProduct: (state, action) => {
+      const index = action.payload;
+      const productToRemove = state.products[index];
+      if (productToRemove) {
+        state.total -= productToRemove.price * productToRemove.quantity;
+        state.products.splice(index, 1);
+        state.quantity = state.products.length;
+      }
+    },
+  },
+});
 
-// const rootReducer = combineReducers({ cart: cartReducer });
+const persistConfig = {
+  key: "root", 
+  storage, 
+};
 
-// const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, cartSlice.reducer);
 
-// const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const store = configureStore({
+  reducer: {
+    cart: persistedReducer,
+  },
+});
 
-// export const store = configureStore({
-//   reducer: persistedReducer,
-//   middleware: (getDefaultMiddleware) =>
-//     getDefaultMiddleware({
-//       serializableCheck: {
-//         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-//       },
-//     }),
-//   enhancers: [composeEnhancers], // Agrega "composeEnhancers" a los enhancers
-// });
+export const { addProduct, removeProduct } = cartSlice.actions;
 
-// export let persistor = persistStore(store);
+const persistor = persistStore(store); 
+
+export { store, persistor };

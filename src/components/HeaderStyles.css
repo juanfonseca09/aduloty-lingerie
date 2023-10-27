@@ -48,3 +48,23 @@
   transition-timing-function: cubic-bezier(0.2, 1, 0.82, 0.94); 
 }
 
+/* Imagen para pantallas grandes (desktop) */
+.logo-desktop {
+  display: block; /* Muestra la imagen */
+}
+
+/* Imagen para pantallas pequeñas (mobile) */
+.logo-mobile {
+  display: none; /* Oculta la imagen */
+}
+
+/* Media query para pantallas pequeñas (por ejemplo, máximo 768px) */
+@media (max-width: 768px) {
+  .logo-desktop {
+    display: none; /* Oculta la imagen en pantallas pequeñas */
+  }
+  .logo-mobile {
+    display: block; /* Muestra la imagen en pantallas pequeñas */
+  }
+}
+
