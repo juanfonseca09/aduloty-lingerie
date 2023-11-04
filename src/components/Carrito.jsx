@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Carrito.css";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { removeProduct } from "../redux/store";
 import { useNavigate } from "react-router-dom";
-import { Global } from '../Global';
+import { Global } from "../Global";
 
 export const Carrito = () => {
   const cart = useSelector((state) => state.cart);
@@ -13,9 +13,8 @@ export const Carrito = () => {
   const navigate = useNavigate();
 
   const handleRemoveProduct = (index) => {
-    console.log(index)
     dispatch(removeProduct(index));
-  }
+  };
 
   return (
     <>
@@ -26,15 +25,29 @@ export const Carrito = () => {
               <Col md={8}>
                 {cart.products.length === 0 ? (
                   <div className="empty-cart mb-5">
-                    <h1>El carrito está vacío</h1>
+                    <div className="row justify-content-center p-4">
+                      <h1>El carrito está vacío</h1>
+                      <Button
+                        onClick={() => navigate("/productos")}
+                        variant="light"
+                        className="col-6 btn-custom"
+                      >
+                        Ver Productos
+                      </Button>
+                    </div>
                   </div>
                 ) : (
                   <div>
                     {cart.products.map((product, index) => (
-                      <Card key={product._id} className="mb-2">
+                      <Card key={index} className="mb-2">
                         <Card.Body className="prod-card">
                           <img
-                            src={Global.url + `products/get-image/${product.images[product.code].url}`}
+                            src={
+                              Global.url +
+                              `products/get-image/${
+                                product.images[product.code].url
+                              }`
+                            }
                             className="img-fluid img-thumbnail"
                             alt=""
                           />
@@ -45,7 +58,12 @@ export const Carrito = () => {
                             </div>
                             <div>
                               <p className="fw-bold">Id:</p>
-                              <p>{product.images[product.code]._id}</p>
+                              <p>
+                                {product.images[product.code]._id.substring(
+                                  16,
+                                  24
+                                )}
+                              </p>
                             </div>
                             <div>
                               <p className="fw-bold">Talle:</p>
@@ -65,6 +83,17 @@ export const Carrito = () => {
                         </Card.Body>
                       </Card>
                     ))}
+                    <div className="empty-cart mb-5">
+                      <div className="row justify-content-center p-4">
+                        <Button
+                          onClick={() => navigate("/productos")}
+                          variant="light"
+                          className="col-6 btn-custom"
+                        >
+                          Ver Mas Productos
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 )}
               </Col>
@@ -74,16 +103,21 @@ export const Carrito = () => {
                     <h2 className="fw-bold">Tu Compra</h2>
                     <hr />
                     <div className="mb-0">
-                      <p>Subtotal: ${cart.total}</p>
-                      <p>IVA: $99</p>
-                      <p>Envío: $999</p>
-                      <p>Total: ${cart.total}</p>
+                      {cart.products.map((pr, index) => (
+                        <p key={index}>
+                          {pr.quantity} X {pr.title}
+                          <br />
+                          Subtotal: ${pr.quantity * pr.price}
+                        </p>
+                      ))}
+                      <hr />
+                      <p>TOTAL: ${cart.total}</p>
                     </div>
                     <div className="row justify-content-center p-4">
                       <Button
                         disabled={cart.products.length === 0}
-                        onClick={() => navigate('/checkout')}
-                        variant='light'
+                        onClick={() => navigate("/checkout")}
+                        variant="light"
                         className="col-6 btn-custom"
                       >
                         Comprar

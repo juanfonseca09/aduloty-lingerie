@@ -9,6 +9,7 @@ import { ProductsList } from "./ProductsList";
 import { Global } from "../Global";
 import { FaPlus, FaMinus, FaCircle } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Audio } from "react-loader-spinner";
 
 export const Producto = () => {
   const location = useLocation();
@@ -16,8 +17,10 @@ export const Producto = () => {
   const [product, setProduct] = useState({});
   const [filtered, setFiltered] = useState([]);
   const [size, setSize] = useState("Talle");
+  const [sizeQuantity, setSizeQuantity] = useState(0);
   const [color, setColor] = useState(null);
   const [productImage, setProductImage] = useState(null);
+  const [pmayor, setPmayor] = useState(false);
   const [code, setCode] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
@@ -25,6 +28,8 @@ export const Producto = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [unique, setUnique] = useState(false);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -38,8 +43,9 @@ export const Producto = () => {
           // },
         });
         setProduct(res.data);
-
-        // Verificamos si hay imágenes antes de intentar mostrar una
+        setColor(res.data.images[code].colors[0].color);
+        if(res.data.categories.includes('Unico Color')) setUnique(true);
+        if(res.data.categories.includes('Prendas SHEIN(Por Mayor)' || 'Accesorios Originales(Por Mayor)' || 'Indumentaria Original(Por Mayor)')) {setPmayor(true); setQuantity(10)}
         if (res.data.images && res.data.images.length > 0) {
           // Cargar la imagen después de que se defina el producto
           setProductImage(
@@ -47,10 +53,11 @@ export const Producto = () => {
               src={
                 Global.url + `products/get-image/${res.data.images[code].url}`
               }
-              alt=""
-              className="img-fluid img-pr p-5"
+              alt="prod"
+              className="img-fluid p-5"
             />
           );
+          setLoading(false);
         }
 
         const res2 = await axios.get(Global.url + "products/");
@@ -93,41 +100,84 @@ export const Producto = () => {
         <Container>
           <Row>
             <Col md={6}>
-              <div className="img-wrapper">{productImage}</div>
+              {loading ? (
+                <Audio
+                  height={80}
+                  width={80}
+                  radius={9}
+                  color="#FB75C7"
+                  ariaLabel="loading"
+                  wrapperStyle={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                />
+              ) : (
+                <div className="img-wrapper">{productImage}</div>
+              )}
             </Col>
             <Col md={4} className="mt-5">
               <h1>{product.title}</h1>
               <p>{product.desc}</p>
               <h3>${product.price}</h3>
-              <Dropdown>
-                <Dropdown.Toggle
-                  variant="light"
-                  className="btn-custom mb-2"
-                  id="dropdown-basic"
-                >
-                  {size}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {product.images && product.images.length > 0
-                    ? product.images[code].colors[0].sizes.map((s, index) => {
+              {product.images && product.images.length > 0 ? (
+                product.images[code].colors[0].sizes.some(
+                  (s) => s.quantity > 0
+                ) ? (
+                  <Dropdown>
+                    <Dropdown.Toggle
+                      variant="light"
+                      className="btn-custom mb-2"
+                      id="dropdown-basic"
+                    >
+                      {size}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      {product.images[code].colors[0].sizes.map((s, index) => {
                         if (s.quantity > 0) {
                           return (
                             <Dropdown.Item
-                              onClick={() => setSize(s.size)}
+                              onClick={() => {setSize(s.size); setSizeQuantity(s.quantity)}}
                               key={s._id}
                             >
                               {s.size}
                             </Dropdown.Item>
                           );
                         }
-                      })
-                    : null}
-                </Dropdown.Menu>
-              </Dropdown>
+                      })}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                ) : (
+                  <p>Sin Stock</p>
+                )
+              ) : null}
+
               <a onClick={handleShow} type="button" className="mb-3 fw-lighter">
                 (Ver Guia de Talles)
-              </a><br/>
-
+              </a>
+              <br />
+              {unique ? (<div className="d-flex mb-4">
+                {product.images && product.images.length > 0
+                  ? product.images.map((c, index) => (
+                    <img
+                    src={
+                      Global.url + `products/get-image/${c.url}`
+                    }
+                    alt="pro"
+                    key={index}
+                    className="img-icons"
+                    onClick={() => setProductImage(<img
+                      src={
+                        Global.url + `products/get-image/${c.url}`
+                      }
+                      alt="prod"
+                      className="img-fluid p-5"
+                    />)}
+                  />
+                    ))
+                  : null}
+              </div>) : (<>
               <label className="form-label">Seleccione un Color:</label>
               <div className="d-flex mb-4">
                 {product.images && product.images.length > 0
@@ -138,26 +188,34 @@ export const Producto = () => {
                         onClick={() => {
                           handleColorChange(c.colors[0].color);
                           setCode(index);
+                          setSize("Talle");
+                          setQuantity(1);
+                          setSizeQuantity(0);
                         }}
                         style={{ color: c.colors[0].color, marginRight: "1vh" }}
                       />
                     ))
                   : null}
               </div>
+              </>)}
+              {sizeQuantity != 0 && (
               <div className="d-flex">
                 <FaMinus
                   className="simb"
                   size={15}
-                  onClick={() => setQuantity(quantity - 1)}
+                  onClick={() => {
+                    if (!pmayor && quantity != 1) setQuantity(quantity - 1)
+                    else if (pmayor && quantity != 10) setQuantity(quantity - 1)
+                  }}
                 />
                 <h4>{quantity}</h4>
                 <FaPlus
                   className="simb"
                   size={15}
-                  onClick={() => setQuantity(quantity + 1)}
+                  onClick={() => {quantity < sizeQuantity && setQuantity(quantity + 1)}}
                 />
               </div>
-
+              )}
               <div className="row justify-content-center p-4">
                 <Button
                   variant="light"
@@ -182,10 +240,12 @@ export const Producto = () => {
               <Modal.Title>Guia de Talles</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
-              velit eaque aspernatur nam eveniet fugit culpa provident molestias
-              architecto sit vitae soluta libero nihil dolores dolorem, vero
-              commodi est perspiciatis.
+              {product.images &&
+              product.images[0].colors[0].sizes[0].size == "XS" ? (
+                <img src="/talles2.jpg" className="img-fluid" alt="talles" />
+              ) : (
+                <img src="/talles1.jpg" className="img-fluid" alt="talles" />
+              )}
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>

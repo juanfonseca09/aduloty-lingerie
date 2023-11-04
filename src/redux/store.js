@@ -10,6 +10,7 @@ const cartSlice = createSlice({
     products: [],
     quantity: 0,
     total: 0,
+    orderId: null,
   },
   reducers: {
     addProduct: (state, action) => {
@@ -27,6 +28,14 @@ const cartSlice = createSlice({
         state.quantity = state.products.length;
       }
     },
+    setOrderId: (state, action) => {
+      state.orderId = action.payload;
+    },
+    resetCart: (state) => {
+      state.products = [];
+      state.quantity = 0;
+      state.total = 0;
+    },
   },
 });
 
@@ -43,7 +52,7 @@ const store = configureStore({
   },
 });
 
-export const { addProduct, removeProduct } = cartSlice.actions;
+export const { addProduct, removeProduct, setOrderId, resetCart } = cartSlice.actions;
 
 const persistor = persistStore(store); 
 

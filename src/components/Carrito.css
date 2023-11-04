@@ -50,3 +50,12 @@
     background-color: rgb(227, 109, 178); /* Cambia el color de fondo al pasar el ratón */
     border-color: rgb(227, 109, 178); /* Cambia el color del borde al pasar el ratón */
   }
+
+  .empty-cart h1{
+    color: rgb(227, 109, 178);
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 5vh;
+    border: 2px solid rgb(227, 109, 178);
+    border-radius: 3px;
+  }

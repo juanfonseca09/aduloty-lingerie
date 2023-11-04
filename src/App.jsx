@@ -10,7 +10,7 @@ function App() {
     <>
     <Router>
       <FloatingWhatsApp
-        phoneNumber="598092037009"
+        phoneNumber="598098667083"
         accountName="Aduloty lingerie"
         statusMessage="Responderemos a la brevedad"
         avatar="./logowp.jpg"

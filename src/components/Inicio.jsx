@@ -28,7 +28,11 @@ export const Inicio = () => {
           //   access_token: SECRET_TOKEN,
           // },
         });
-        setProducts(res.data);
+        const destacados = res.data.filter((product) =>
+          product.categories.includes("Destacado")
+        );
+
+        setProducts(destacados);
       } catch (err) {
         console.error(err);
       }
@@ -50,7 +54,6 @@ export const Inicio = () => {
   const redir = (cat) => {
     navigate(`/productos?categoria=${cat}`);
   };
-  
 
   return (
     <>
@@ -101,27 +104,41 @@ export const Inicio = () => {
             </div>
             <div>
               <div className="d-flex justify-content-center align-items-center cat">
-                  <div className="categoria" onClick={() => redir("Victoria's Secret")}>
-                    <p>Victoria's Secret</p>
-                  </div>
-                  <div className="categoria" onClick={() => redir("Lencería")}>
-                    <p>Lencería</p>
-                  </div>
-                  <div className="categoria" onClick={() => redir("Preventa Lencería")}>
-                    <p>Preventa Lencería</p>
-                  </div>
+                <div
+                  className="categoria"
+                  onClick={() => redir("Victoria's Secret")}
+                >
+                  <p>Victoria's Secret</p>
+                </div>
+                <div className="categoria" onClick={() => redir("Lencería")}>
+                  <p>Lencería</p>
+                </div>
+                <div
+                  className="categoria"
+                  onClick={() => redir("Preventa Lencería")}
+                >
+                  <p>Preventa Lencería</p>
+                </div>
               </div>
               <div className="d-flex justify-content-center align-items-center cat">
-
-                  <div className="categoria" onClick={() => redir("Accesorios Originales")}>
-                    <p>Accesorios Originales</p>
-                  </div>
-                  <div className="categoria" onClick={() => redir("Indumentaria")}>
-                    <p>Indumentaria</p>
-                  </div>
-                  <div className="categoria" onClick={() => redir("Indumentaria Original")}>
-                    <p>Indumentaria Original</p>
-                  </div>
+                <div
+                  className="categoria"
+                  onClick={() => redir("Accesorios Originales")}
+                >
+                  <p>Accesorios Originales</p>
+                </div>
+                <div
+                  className="categoria"
+                  onClick={() => redir("Indumentaria")}
+                >
+                  <p>Indumentaria</p>
+                </div>
+                <div
+                  className="categoria"
+                  onClick={() => redir("Indumentaria Original")}
+                >
+                  <p>Indumentaria Original</p>
+                </div>
               </div>
             </div>
           </Container>

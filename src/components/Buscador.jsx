@@ -23,7 +23,7 @@ export const Buscador = ({ products }) => {
         <div className="buscador row justify-content-center">
           <input
             type="text"
-            placeholder="Buscar..."
+            placeholder="Buscar . . ."
             className="buscador-input"
             value={searchTerm}
             onChange={handleChange}

@@ -6,14 +6,16 @@ import { ProductsList } from "./ProductsList";
 import { Global } from "../Global";
 import { Buscador } from "./Buscador";
 import { useLocation } from "react-router-dom";
+import { Audio } from "react-loader-spinner";
 
 export const Productos = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("newest");
   const [cat, setCat] = useState("");
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [visibleProducts, setVisibleProducts] = useState(8); 
+  const [visibleProducts, setVisibleProducts] = useState(8);
   const [showMoreButton, setShowMoreButton] = useState(true);
 
   useEffect(() => {
@@ -25,23 +27,23 @@ export const Productos = () => {
           withCredentials: false,
         });
         setProducts(res.data);
-        if(categoria) {
-          setCat(categoria)
-        };
+        if (categoria) {
+          setCat(categoria);
+        }
+        setIsLoading(false);
       } catch (err) {
         console.error(err);
+        setIsLoading(false);
       }
     };
     getProducts();
   }, []);
 
   useEffect(() => {
-    // Filtrar y ordenar productos
     const filtered = filterAndSortProducts();
     setFilteredProducts(filtered);
   }, [products, cat, filters, sort]);
 
-  // Función para filtrar y ordenar productos
   const filterAndSortProducts = () => {
     let filtered = [...products];
 
@@ -74,11 +76,9 @@ export const Productos = () => {
     }));
   };
 
-  // Función para cargar más productos al hacer clic en el botón "Mostrar Más"
   const loadMoreProducts = () => {
     setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 8);
 
-    // Verificar si se deben mostrar más productos o no
     if (visibleProducts + 8 >= filteredProducts.length) {
       setShowMoreButton(false);
     }
@@ -87,18 +87,21 @@ export const Productos = () => {
   const location = useLocation();
   const categoria = new URLSearchParams(location.search).get("categoria");
 
-
   return (
     <div>
-      <Buscador products={products}/>
+      <Buscador products={products} />
       <div className="bkgr">
         <Container>
           <div className="productos">
             <div className="titulo-productos d-flex">
-              <img src="./productos.png" className=" img-fluid" />
+              <img
+                src="./productos.png"
+                className="img-fluid"
+                alt="Productos"
+              />
             </div>
             <Row>
-              <div className="d-flex p-4 justify-content-center mb-5 ">
+              <div className="d-flex p-4 justify-content-center mb-5">
                 <Dropdown>
                   <div>
                     <div className="btncont">
@@ -164,7 +167,7 @@ export const Productos = () => {
                     <div className="btncont">
                       <Dropdown.Toggle
                         variant="light"
-                        className=" btn-custom"
+                        className="btn-custom"
                         id="dropdown-basic"
                       >
                         ORDENAR POR
@@ -185,9 +188,24 @@ export const Productos = () => {
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
-              <ProductsList
-                products={filteredProducts.slice(0, visibleProducts)}
+              {isLoading ? (
+                <Audio
+                height={80}
+                width={80}
+                radius={9}
+                color="#FB75C7"
+                ariaLabel="loading"
+                wrapperStyle={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               />
+              ) : (
+                <ProductsList
+                  products={filteredProducts.slice(0, visibleProducts)}
+                />
+              )}
               {showMoreButton && (
                 <div className="d-flex justify-content-center py-4">
                   <Button

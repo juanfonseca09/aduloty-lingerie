@@ -6,6 +6,7 @@ import { Productos } from '../components/Productos';
 import { Producto } from '../components/Producto';
 import { CheckOut } from '../components/CheckOut';
 import { Preguntas } from '../components/Preguntas';
+import { Mail } from '../components/Mail';
 
 export const MyRoutes = () => {
   return (
@@ -17,7 +18,8 @@ export const MyRoutes = () => {
             <Route path='/productos' element={<Productos />} />
             <Route path='/preguntas-frecuentes' element={<Preguntas />} />
             <Route path='/producto/:id' element={<Producto/>} />    
-            <Route path='/checkout' element={<CheckOut/>} />         
+            <Route path='/checkout' element={<CheckOut/>} />   
+            <Route path='/mail' element={<Mail/>} />       
         </Routes>
 
   )

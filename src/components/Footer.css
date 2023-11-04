@@ -34,6 +34,15 @@
     margin: 1vh; 
 }
 
+.politica a:hover{
+    color: #fff;
+    transition: 0.15s;
+}
+
+.politica a{
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
     .footer .payment-logos img {
         max-width: 7vh; 

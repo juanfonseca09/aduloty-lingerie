@@ -66,3 +66,15 @@
     color: rgb(207, 99, 158);
     transition: 0.15s;
   }
+
+  .img-icons {
+    padding: 1vh;
+    height: 20vh;
+    border-radius: 20px;
+  }
+
+  .img-icons:hover {
+    background-color: lightgray;
+    border-radius: 20px;
+    transition: 0.5s;
+  }
