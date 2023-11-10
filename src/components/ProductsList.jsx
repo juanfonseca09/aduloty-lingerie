@@ -28,7 +28,7 @@ export const ProductsList = ({ products }) => {
           className={index % 2 === 0 ? "item espacio" : "item"}
         >
           <div className="img-container">
-            <img src={Global.url+`products/get-image/${item.images[0].url}`} alt="" className="img-fluid" />
+            <img src={process.env.BK_URL+`products/get-image/${item.images[0].url}`} alt="" className="img-fluid" />
             <div className="boton-container">
               <div className="boton">
                 <FaSearch size={20} onClick={() => handleSearchClick(item)} />
