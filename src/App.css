@@ -5,6 +5,6 @@
 }
 
 .bkgr {
-    background-image: url("https://aduloty-lingerie.netlify.app/fondo.png")!important;
+    background-image: url("https://aduloty-lingerie.netlify.app/fondo.png");
     background-size: cover;
   }
