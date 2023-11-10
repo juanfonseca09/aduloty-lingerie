@@ -23,10 +23,7 @@ export const Inicio = () => {
         const res = await axios({
           method: "get",
           url: Global.url + "products",
-          withCredentials: false,
-          // params: {
-          //   access_token: SECRET_TOKEN,
-          // },
+          withCredentials: true,
         });
         const destacados = res.data.filter((product) =>
           product.categories.includes("Destacado")

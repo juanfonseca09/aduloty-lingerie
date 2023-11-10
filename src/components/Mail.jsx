@@ -18,7 +18,7 @@ export const Mail = () => {
         const res = await axios({
           method: "get",
           url: Global.url + "orders/" + cart.orderId,
-          withCredentials: false,
+          withCredentials: true,
         });
         setOrder(res.data);
         setOrderLoaded(true); 

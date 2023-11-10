@@ -37,17 +37,13 @@ export const Producto = () => {
         const res = await axios({
           method: "get",
           url: Global.url + `products/find/${id}`,
-          withCredentials: false,
-          // params: {
-          //   access_token: SECRET_TOKEN,
-          // },
+          withCredentials: true,
         });
         setProduct(res.data);
         setColor(res.data.images[code].colors[0].color);
         if(res.data.categories.includes('Unico Color')) setUnique(true);
         if(res.data.categories.includes('Prendas SHEIN(Por Mayor)' || 'Accesorios Originales(Por Mayor)' || 'Indumentaria Original(Por Mayor)')) {setPmayor(true); setQuantity(10)}
         if (res.data.images && res.data.images.length > 0) {
-          // Cargar la imagen después de que se defina el producto
           setProductImage(
             <img
               src={

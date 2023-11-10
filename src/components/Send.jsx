@@ -25,8 +25,11 @@ export const Send = ({ order }) => {
               to: order.mail,
               subject: "Comprobante de compra Aduloty Lingerie",
               html: render(<Send order={order} />),
+            },
+            {
+              withCredentials: true,
             });
-            window.location.href = "http://localhost:5173/";
+            window.location.href = "https://aduloty-lingerie.netlify.app";
           } catch (error) {
           }
         };

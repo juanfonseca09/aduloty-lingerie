@@ -66,7 +66,7 @@ export const CheckOut = () => {
         const deleteOrder = async () => {
           try {
             await axios.delete(Global.url + "orders/" + cart.orderId, {
-              withCredentials: false,
+              withCredentials: true,
             });
           } catch (error) {
           }
@@ -86,7 +86,7 @@ export const CheckOut = () => {
       const response = await axios({
         method: "post",
         url: Global.url + "checkout/create_preference",
-        withCredentials: false,
+        withCredentials: true,
         data: { items },
       });
       const { id } = response.data;
@@ -151,7 +151,7 @@ export const CheckOut = () => {
           await axios({
             method: "put",
             url: Global.url + "products/" + product._id,
-            withCredentials: false,
+            withCredentials: true,
             data: {
               sizeIndex: sizeIndex,
               quantity: sizeQuantity - product.quantity,
@@ -168,7 +168,7 @@ export const CheckOut = () => {
       await axios({
         method: "put",
         url: Global.url + "orders/" + cart.orderId,
-        withCredentials: false,
+        withCredentials: true,
         data: {
           estatus: d1,
           payid: d2,
@@ -236,7 +236,7 @@ export const CheckOut = () => {
       const res = await axios({
         method: "post",
         url: Global.url + "orders",
-        withCredentials: false,
+        withCredentials: true,
         data: orderData,
       });
       dispatch(setOrderId(res.data._id));

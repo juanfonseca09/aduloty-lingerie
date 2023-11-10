@@ -24,7 +24,7 @@ export const Productos = () => {
         const res = await axios({
           method: "get",
           url: Global.url + "products",
-          withCredentials: false,
+          withCredentials: true,
         });
         setProducts(res.data);
         if (categoria) {
