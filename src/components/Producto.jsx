@@ -72,7 +72,6 @@ export const Producto = () => {
           .slice(0, 4);
         setFiltered(filteredRelatedProducts);
       } catch (error) {
-        console.error("Error al obtener los datos:", error);
       }
     };
     getProduct();

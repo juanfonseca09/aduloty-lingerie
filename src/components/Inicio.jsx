@@ -34,7 +34,6 @@ export const Inicio = () => {
 
         setProducts(destacados);
       } catch (err) {
-        console.error(err);
       }
     };
     getProducts();

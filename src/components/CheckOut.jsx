@@ -5,8 +5,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "../useForm";
 import { Alert, Card, Col, Container, InputGroup, Row } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { setOrderId, resetCart } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setOrderId } from "../redux/store";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { codigos } from "../codigos";
 import { Global } from "../Global";
@@ -14,7 +14,6 @@ import "../App.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Mail } from './Mail'
 
 export const CheckOut = () => {
   const { form, changed } = useForm({});
@@ -29,9 +28,9 @@ export const CheckOut = () => {
   const [btn, setBtn] = useState("");
   const [envio, setEnvio] = useState("");
   const [btn2, setBtn2] = useState(true);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (cart.total === 0) navigate("/inicio");
@@ -39,24 +38,40 @@ export const CheckOut = () => {
     setTotal(cart.total);
     const searchParams = new URLSearchParams(location.search);
     const status = searchParams.get("status");
-    console.log(status);
     if (status != null) {
       const paymentId = searchParams.get("payment_id");
       const merchantOrderId = searchParams.get("merchant_order_id");
       updateOrder(status, paymentId, merchantOrderId);
       if (status == "approved" || status == "pending") {
-        // updateProduct();
-        sendEmail();
-        // dispatch(resetCart());
+        updateProduct();
         Swal.fire({
-          title: "¡Compra Realizada Correctamente!",
-          text: "Hemos enviado un mail a tu casilla de correo, gracias por tu compra!",
+          position: "center",
           icon: "success",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate("/inicio");
-          }
+          title: "Compra Realizada Correctamente",
+          text: "Hemos enviado un mail a tu casilla de correo con las instrucciones a seguir, gracias por tu compra!",
+          showConfirmButton: false,
+          timer: 5000,
         });
+        setTimeout(() => {
+          navigate("/mail");
+        }, 4500);
+      } else if (status == "declined") {
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "Hubo un error en el proceso de compra, intentelo nuevamente!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+        const deleteOrder = async () => {
+          try {
+            await axios.delete(Global.url + "orders/" + cart.orderId, {
+              withCredentials: false,
+            });
+          } catch (error) {
+          }
+        };
+        deleteOrder();
       }
     }
   }, []);
@@ -77,7 +92,7 @@ export const CheckOut = () => {
       const { id } = response.data;
       return id;
     } catch (error) {
-      console.log(error);
+
     }
   };
 
@@ -142,18 +157,15 @@ export const CheckOut = () => {
               quantity: sizeQuantity - product.quantity,
             },
           });
-        } else {
-          console.log("Tamaño no válido:", product.size);
         }
       }
     } catch (error) {
-      console.log(error);
     }
   };
 
   const updateOrder = async (d1, d2, d3) => {
     try {
-      const res = await axios({
+      await axios({
         method: "put",
         url: Global.url + "orders/" + cart.orderId,
         withCredentials: false,
@@ -163,25 +175,7 @@ export const CheckOut = () => {
           merchant_order_id: d3,
         },
       });
-      console.log("Datos del pedido enviados al servidor:", res.data);
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const sendEmail = async () => {
-    console.log(form.mail)
-console.log(Mail)
-    try {
-      const response = await axios.post("/send-email", {
-        to: form.mail,
-        subject: 'Comprobante de compra Aduloty Lingerie',
-        html: Mail,
-      });
-
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -190,33 +184,32 @@ console.log(Mail)
     e.preventDefault();
     setValidated(true);
     if (formData.checkValidity()) {
-      // sendOrderDataToServer();
+      sendOrderDataToServer();
       if (btn === "mercadoPago") {
         const id = await createPreference();
         if (id) {
           setPreferenceId(id);
         }
       }
-      // setBtn2(false);
+      setBtn2(false);
       if (btn === "debitoBancario") {
-        // updateProduct();
-        sendEmail();
-        // dispatch(resetCart());
-        // Swal.fire({
-        //   title: "¡Compra Realizada Correctamente!",
-        //   text: "Hemos enviado un mail a tu casilla de correo con las instrucciones a seguir, gracias por tu compra!",
-        //   icon: "success",
-        // }).then((result) => {
-        //   if (result.isConfirmed) {
-        //     navigate("/inicio");
-        //   }
-        // });
+        updateProduct();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Compra Realizada Correctamente",
+          text: "Hemos enviado un mail a tu casilla de correo con las instrucciones a seguir, gracias por tu compra!",
+          showConfirmButton: false,
+          timer: 5000,
+        });
+        setTimeout(() => {
+          navigate("/mail");
+        }, 4500);
       }
     }
   };
 
   const sendOrderDataToServer = async () => {
-    console.log(btn);
     const items = cart.products.map((product) => ({
       title: product.title,
       image: product.images[product.code].url,
@@ -247,9 +240,7 @@ console.log(Mail)
         data: orderData,
       });
       dispatch(setOrderId(res.data._id));
-      console.log("Datos del pedido enviados al servidor:", res.data);
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -478,12 +469,18 @@ console.log(Mail)
                               </Card.Body>
                             </Card>
                             <div className="d-flex">
-                            {btn === 'debitoBancario' && (<Alert variant="light">
-                              -Deposito y/o transferencia en cuenta itau<br/>-CAJA
-                              DE AHORRO ITAU / 9122402 /<br/>Nombre del titular:
-                              Abiggail Ippoliti<br/>ENVIAR COMPROBANTE DE PAGO<br/>
-                              MEDIANTE WHATSAPP O INSTAGRAM
-                            </Alert>)}
+                              {btn === "debitoBancario" && (
+                                <Alert variant="light">
+                                  -Deposito y/o transferencia en cuenta itau
+                                  <br />
+                                  -CAJA DE AHORRO ITAU / 9122402 /<br />
+                                  Nombre del titular: Abiggail Ippoliti
+                                  <br />
+                                  ENVIAR COMPROBANTE DE PAGO
+                                  <br />
+                                  MEDIANTE WHATSAPP O INSTAGRAM
+                                </Alert>
+                              )}
                             </div>
                             <Form.Group className="form-outline form-white mb-4 p-4">
                               <Form.Check

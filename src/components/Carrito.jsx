@@ -57,21 +57,16 @@ export const Carrito = () => {
                               <p>{product.title}</p>
                             </div>
                             <div>
-                              <p className="fw-bold">Id:</p>
-                              <p>
-                                {product.images[product.code]._id.substring(
-                                  16,
-                                  24
-                                )}
-                              </p>
-                            </div>
-                            <div>
                               <p className="fw-bold">Talle:</p>
                               <p>{product.size}</p>
                             </div>
                             <div>
                               <p className="fw-bold">Cantidad:</p>
                               <p>{product.quantity}</p>
+                            </div>
+                            <div>
+                              <p className="fw-bold">Precio:</p>
+                              <p>${product.price}</p>
                             </div>
                           </div>
                           <div className="trash">

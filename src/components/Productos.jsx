@@ -32,7 +32,6 @@ export const Productos = () => {
         }
         setIsLoading(false);
       } catch (err) {
-        console.error(err);
         setIsLoading(false);
       }
     };
