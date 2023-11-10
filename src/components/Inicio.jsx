@@ -22,7 +22,7 @@ export const Inicio = () => {
       try {
         const res = await axios({
           method: "get",
-          url: process.env.url + "products",
+          url: process.env.URL + "products",
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${process.env.SECRET_TOKEN}`,
