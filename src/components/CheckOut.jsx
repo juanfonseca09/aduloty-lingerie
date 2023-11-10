@@ -34,7 +34,7 @@ export const CheckOut = () => {
 
   useEffect(() => {
     if (cart.total === 0) navigate("/inicio");
-    initMercadoPago("APP_USR-1badb616-4559-4b99-8b45-c7b753e196e9");
+    initMercadoPago(process.env.INIT_MP);
     setTotal(cart.total);
     const searchParams = new URLSearchParams(location.search);
     const status = searchParams.get("status");
