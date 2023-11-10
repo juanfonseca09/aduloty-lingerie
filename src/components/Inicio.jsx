@@ -22,13 +22,15 @@ export const Inicio = () => {
       try {
         const res = await axios({
           method: "get",
-          url: Global.url + "products",
+          url: process.env.url + "products",
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${process.env.SECRET_TOKEN}`,
+          },
         });
         const destacados = res.data.filter((product) =>
           product.categories.includes("Destacado")
         );
-
         setProducts(destacados);
       } catch (err) {
       }
