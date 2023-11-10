@@ -4,3 +4,7 @@
     font-family: 'Urbanist','Sans Serif';
 }
 
+.bkgr {
+    background-image: url("https://aduloty-lingerie.netlify.app/fondo.png")!important;
+    background-size: cover;
+  }

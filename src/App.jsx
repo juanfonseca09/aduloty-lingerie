@@ -22,7 +22,9 @@ function App() {
           notificationSound
         />
         <HeaderNav />
-        <MyRoutes />
+        <div className="bkgr">
+          <MyRoutes />
+        </div>
         <Footer />
       </Router>
     </>
