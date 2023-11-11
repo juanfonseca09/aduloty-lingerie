@@ -7,8 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { ProductsList } from "./ProductsList";
 import { useEffect } from "react";
-import axios from "axios";
-import { Global } from "../Global";
+import axios from '../axiosInstance';
 import { Buscador } from "./Buscador";
 
 export const Inicio = () => {
@@ -20,14 +19,7 @@ export const Inicio = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios({
-          method: "get",
-          url: process.env.BK_URL + "products",
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${process.env.SECRET_TOKEN}`,
-          },
-        });
+        const res = await axios.get('/products');
         const destacados = res.data.filter((product) =>
           product.categories.includes("Destacado")
         );
