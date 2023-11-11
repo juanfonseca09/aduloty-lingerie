@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Col, Modal } from "react-bootstrap";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import axios from './axiosInstance';
+import axios from '../axiosInstance';
 
 export const ProductsList = ({ products }) => {
   const [showModal, setShowModal] = useState(false);
