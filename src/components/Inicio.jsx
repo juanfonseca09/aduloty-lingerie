@@ -20,11 +20,11 @@ export const Inicio = () => {
     const getProducts = async () => {
       try {
         const res = await axios.get('/products');
+        console.log(res.data)
         const destacados = res.data.filter((product) =>
           product.categories.includes("Destacado")
         );
         setProducts(destacados);
-        console.log(products)
       } catch (err) {
       }
     };
