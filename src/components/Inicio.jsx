@@ -24,6 +24,7 @@ export const Inicio = () => {
           product.categories.includes("Destacado")
         );
         setProducts(destacados);
+        console.log(products)
       } catch (err) {
       }
     };

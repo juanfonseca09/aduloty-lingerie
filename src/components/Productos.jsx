@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Productos.css";
 import { Container, Row, Dropdown, Button } from "react-bootstrap";
-import axios from "axios";
+import axios from "../axiosInstance";
 import { ProductsList } from "./ProductsList";
-import { Global } from "../Global";
 import { Buscador } from "./Buscador";
 import { useLocation } from "react-router-dom";
 import { Audio } from "react-loader-spinner";
@@ -21,11 +20,7 @@ export const Productos = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios({
-          method: "get",
-          url: Global.url + "products",
-          withCredentials: true,
-        });
+        const res = await axios('/products');
         setProducts(res.data);
         if (categoria) {
           setCat(categoria);
