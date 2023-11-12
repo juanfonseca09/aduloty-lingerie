@@ -6,8 +6,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-  const secretToken = import.meta.env.VITE_SECRET_TOKEN;
-  config.headers.Authorization = `Bearer ${secretToken}`;
+  config.headers.Authorization = `Bearer ${import.meta.env.VITE_SECRET_TOKEN}`;
   return config;
 });
 
