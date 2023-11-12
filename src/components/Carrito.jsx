@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeProduct } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import { Global } from "../Global";
+import axios from '../axiosInstance';
 
 export const Carrito = () => {
   const cart = useSelector((state) => state.cart);
@@ -43,7 +44,7 @@ export const Carrito = () => {
                         <Card.Body className="prod-card">
                           <img
                             src={
-                              Global.url +
+                              axios.defaults.baseURL +
                               `products/get-image/${
                                 product.images[product.code].url
                               }`
