@@ -58,7 +58,6 @@ export const Productos = () => {
     } else if (sort === "desc") {
       return [...filtered].sort((a, b) => b.price - a.price);
     }
-
     return filtered;
   };
 
@@ -119,9 +118,6 @@ export const Productos = () => {
                     </Dropdown.Item>
                     <Dropdown.Item onClick={() => setCat("Lencería")}>
                       Lencería
-                    </Dropdown.Item>
-                    <Dropdown.Item onClick={() => setCat("Preventa Lencería")}>
-                      Preventa Lencería
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => setCat("Preventa Accesorios Originales")}
