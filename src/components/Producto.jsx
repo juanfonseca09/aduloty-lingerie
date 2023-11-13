@@ -52,11 +52,8 @@ export const Producto = () => {
             <img
               src={
                 axios.defaults.baseURL +
-                `/products/get-image/${res.data.images[code].url}`
+                `/get-image/${res.data.images[code].url}`
               }
-              headers={{
-                Authorization: `Bearer ${import.meta.env.VITE_SECRET_TOKEN}`,
-              }}
               alt="prod"
               className="img-fluid p-5"
             />
@@ -169,13 +166,8 @@ export const Producto = () => {
                         <img
                           src={
                             axios.defaults.baseURL +
-                            `/products/get-image/${c.url}`
+                            `/get-image/${c.url}`
                           }
-                          headers={{
-                            Authorization: `Bearer ${
-                              import.meta.env.VITE_SECRET_TOKEN
-                            }`,
-                          }}
                           alt="pro"
                           key={index}
                           className="img-icons"
@@ -184,13 +176,8 @@ export const Producto = () => {
                               <img
                                 src={
                                   axios.defaults.baseURL +
-                                  `/products/get-image/${c.url}`
+                                  `/get-image/${c.url}`
                                 }
-                                headers={{
-                                  Authorization: `Bearer ${
-                                    import.meta.env.VITE_SECRET_TOKEN
-                                  }`,
-                                }}
                                 alt="prod"
                                 className="img-fluid p-5"
                               />

@@ -11,16 +11,17 @@
     padding-left: 8vh;
     padding-right: 8vh;    
   }
+
   input:focus {
     outline: none;
   }
+
   .buscador-input {
     color: white;
     border: none;
     border-radius: 3px;
     width: 100%; 
     background-color: rgb(252,146,209);
-   
   }
 
   .resultados {

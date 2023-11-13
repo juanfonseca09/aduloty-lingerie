@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .footer .social {
@@ -25,26 +25,26 @@
 
 .footer .payment-logos {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
 }
 
 .footer .payment-logos img {
-    max-width: 10vh; 
-    margin: 1vh; 
+    max-width: 10vh;
+    margin: 1vh;
 }
 
-.politica a:hover{
+.politica a:hover {
     color: #fff;
     transition: 0.15s;
 }
 
-.politica a{
+.politica a {
     text-decoration: underline;
 }
 
 @media (max-width: 768px) {
     .footer .payment-logos img {
-        max-width: 7vh; 
+        max-width: 7vh;
     }
-  }
+}

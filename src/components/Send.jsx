@@ -21,14 +21,11 @@ export const Send = ({ order }) => {
     const sendEmail = async () => {
       try {
         await axios.post(
-          Global.url + "send-mail/",
+          "/send-mail/",
           {
             to: order.mail,
             subject: "Comprobante de compra Aduloty Lingerie",
             html: render(<Send order={order} />),
-          },
-          {
-            withCredentials: true,
           }
         );
         window.location.href = "https://adulotylingerie.com.uy";
@@ -87,12 +84,7 @@ export const Send = ({ order }) => {
                 <Row key={product.productId}>
                   <Column>
                     <Img
-                      src={`${axios.defaults.baseURL}products/get-image/${product.image}`}
-                      headers={{
-                        Authorization: `Bearer ${
-                          import.meta.env.VITE_SECRET_TOKEN
-                        }`,
-                      }}
+                      src={`${axios.defaults.baseURL}/get-image/${product.image}`}
                       alt="Producto"
                       style={{ padding: "8px" }}
                       width="120px"

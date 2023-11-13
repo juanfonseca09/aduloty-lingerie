@@ -2,7 +2,6 @@
 
 .navbar-custom {
   font-family: 'Poppins', sans-serif;
- 
   font-weight: 800;
   background-color: #fff;
   align-items: left;
@@ -22,12 +21,12 @@
   padding-bottom: 5px;
 }
 
-.navbar-custom  a:hover {
+.navbar-custom a:hover {
   transition: 0.2s;
   color: #FB75C7;
 }
 
-.navbar-custom  a::before {
+.navbar-custom a::before {
   content: '';
   position: absolute;
   bottom: 0;
@@ -42,29 +41,26 @@
   transition: transform 0.5s ease-in-out;
 }
 
-.navbar-custom  a:hover::before {
+.navbar-custom a:hover::before {
   transform-origin: center;
   transform: scaleX(1);
-  transition-timing-function: cubic-bezier(0.2, 1, 0.82, 0.94); 
+  transition-timing-function: cubic-bezier(0.2, 1, 0.82, 0.94);
 }
 
-/* Imagen para pantallas grandes (desktop) */
 .logo-desktop {
-  display: block; /* Muestra la imagen */
+  display: block;
 }
 
-/* Imagen para pantallas pequeñas (mobile) */
 .logo-mobile {
-  display: none; /* Oculta la imagen */
+  display: none;
 }
 
-/* Media query para pantallas pequeñas (por ejemplo, máximo 768px) */
 @media (max-width: 768px) {
   .logo-desktop {
-    display: none; /* Oculta la imagen en pantallas pequeñas */
+    display: none;
   }
+
   .logo-mobile {
-    display: block; /* Muestra la imagen en pantallas pequeñas */
+    display: block;
   }
 }
-

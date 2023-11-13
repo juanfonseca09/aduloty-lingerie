@@ -1,41 +1,39 @@
 .productos {
-    padding-top: 10vh;
-    padding-bottom: 10vh;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
 }
 
 .titulo-productos {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 5vh;
-  }
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5vh;
+}
 
-  .productos .btncont {
-    padding-left: 5vh;
-    padding-right: 5vh;
-  }
-  
-  .productos .btn-custom {
-    
-    color: #fff; /* Color del texto */
-    background-color: rgb(252,146,209); /* Color de fondo personalizado */
-    border-color: rgb(252,146,209); /* Color del borde */
-  }
-  
-  .productos .btn-custom:hover {
-    color: #fff;
-    background-color: rgb(227, 109, 178); /* Cambia el color de fondo al pasar el ratón */
-    border-color: rgb(227, 109, 178); /* Cambia el color del borde al pasar el ratón */
-  }
+.productos .btncont {
+  padding-left: 5vh;
+  padding-right: 5vh;
+}
 
-  .nombre p{
-    font-size: 0.8rem!important;
-  }
+.productos .btn-custom {
 
-  .modal-image {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  
+  color: #fff;
+  background-color: rgb(252, 146, 209);
+  border-color: rgb(252, 146, 209);
+}
+
+.productos .btn-custom:hover {
+  color: #fff;
+  background-color: rgb(227, 109, 178);
+  border-color: rgb(227, 109, 178);
+}
+
+.nombre p {
+  font-size: 0.8rem !important;
+}
+
+.modal-image {
+  max-width: 100%;
+  height: auto;
+}

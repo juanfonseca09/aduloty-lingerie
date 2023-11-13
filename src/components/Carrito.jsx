@@ -44,15 +44,10 @@ export const Carrito = () => {
                           <img
                             src={
                               axios.defaults.baseURL +
-                              `products/get-image/${
+                              `/get-image/${
                                 product.images[product.code].url
                               }`
                             }
-                            headers={{
-                              Authorization: `Bearer ${
-                                import.meta.env.VITE_SECRET_TOKEN
-                              }`,
-                            }}
                             className="img-fluid img-thumbnail"
                             alt=""
                           />

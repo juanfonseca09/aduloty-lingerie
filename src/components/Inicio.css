@@ -1,17 +1,17 @@
-.destacado{
+.destacado {
   padding-bottom: 10vh;
   padding-top: 10vh;
 }
 
 .destacado .btn-custom {
-  color: #fff; /* Color del texto */
-  background-color: rgb(252,146,209); /* Color de fondo personalizado */
-  border-color: rgb(252,146,209); /* Color del borde */
+  color: #fff;
+  background-color: rgb(252, 146, 209);
+  border-color: rgb(252, 146, 209);
 }
 
 .destacado .btn-custom:hover {
-  background-color: rgb(227, 109, 178); /* Cambia el color de fondo al pasar el ratón */
-  border-color: rgb(227, 109, 178); /* Cambia el color del borde al pasar el ratón */
+  background-color: rgb(227, 109, 178);
+  border-color: rgb(227, 109, 178);
 }
 
 .titulo-destacado {
@@ -46,15 +46,12 @@
   font-weight: bold;
 }
 
-.envio .hov:hover{
+.envio .hov:hover {
   color: rgb(227, 109, 178);
   transition: 0.15s;
 }
 
-
-
-
-.espacio{
+.espacio {
   padding-top: 7vh;
 }
 
@@ -70,7 +67,7 @@
 }
 
 .img-fluid {
-  max-width: 50vw; /* Ajusta el valor según tus preferencias */
+  max-width: 50vw;
   height: auto;
   transition: transform 0.3s ease;
 }
@@ -83,19 +80,19 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgb(252,146,209,0.5); /* Capa de fondo oscuro */
-  opacity: 0; /* Inicialmente oculto */
+  background-color: rgb(252, 146, 209, 0.5);
+  opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .img-container::after {
-  content: ''; /* Crea un pseudo-elemento */
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%; /* Ancho del borde (ajusta según necesites) */
-  height: 40%; /* Altura del borde (ajusta según necesites) */
-  background: linear-gradient(8deg,rgba(255, 255, 255, 0.7) 70%, transparent 75%);
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(8deg, rgba(255, 255, 255, 0.7) 70%, transparent 75%);
 }
 
 
@@ -104,7 +101,7 @@
 }
 
 .img-container:hover .boton-container {
-  opacity: 1; 
+  opacity: 1;
   transition: opacity 0.3s ease;
 }
 
@@ -117,14 +114,12 @@
   position: absolute;
   top: 86%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  color: #000; /* Color del texto */
-  padding: 10px;
-  z-index: 1;
+  transform: translate(-50%, -55%);
+  color: #000;
 }
 
 .nombre p {
-  margin: 0; /* Elimina el margen interior de los párrafos */
+  margin: 0;
 }
 
 .boton-container {
@@ -138,43 +133,39 @@
 }
 
 .boton {
-  background-color: rgb(0,0,0,0.5);
-  border-radius: 50%; /* Hace que el borde sea un círculo perfecto */
-  width: 50px; /* Ajusta el ancho y alto para hacer el círculo */
+  background-color: rgb(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 50px;
   height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
- 
-  margin: 0 10px; /* Ajusta la separación entre los botones */
+  margin: 0 10px;
 }
 
 .boton svg {
-  
-  color: #fff; /* Cambia el color según tus preferencias */
+  color: #fff;
   cursor: pointer;
 }
+
 .boton svg:hover {
-  
-  color: rgb(252,146,209); /* Cambia el color según tus preferencias */
+  color: rgb(252, 146, 209);
   cursor: pointer;
 }
 
 .destacado a {
-   text-decoration: none;
+  text-decoration: none;
 }
 
-.nombre p{
-  font-size: 0.8rem!important;
+.nombre p {
+  font-size: 0.8rem !important;
 }
 
 .custom-carousel {
   width: 100%;
-  max-height: 830px; /* Cambia este valor según tu preferencia */
+  max-height: 830px;
   overflow: hidden;
 }
-
-
 
 .video-container {
   position: relative;
@@ -184,8 +175,8 @@
 }
 
 .video {
-  width: 100%; 
-  height: 100%; 
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -202,7 +193,7 @@
   box-sizing: border-box;
 }
 
-.carousel-text a:hover{
+.carousel-text a:hover {
   color: #fff;
 }
 
@@ -216,7 +207,7 @@
 }
 
 .overlay2 {
-  background-color: rgba(0,0,0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   left: 0;
@@ -230,10 +221,10 @@
   padding-top: 2vh;
   padding-bottom: 1vh;
   align-items: center;
-  justify-content: center;  
+  justify-content: center;
 }
 
-.categorias a{
+.categorias a {
   text-decoration: none;
 }
 
@@ -261,7 +252,7 @@
   background-color: rgba(252, 146, 209);
   border-radius: 5px;
   display: flex;
- margin: 1.8vh;
+  margin: 1.8vh;
 }
 
 .cat .categoria p {
@@ -276,9 +267,9 @@
   font-weight: bold;
 }
 
-.categoria:hover{
+.categoria:hover {
   background-color: rgba(232, 126, 189);
-  color:lightgray;
+  color: lightgray;
   transition: 0.15s;
 }
 
