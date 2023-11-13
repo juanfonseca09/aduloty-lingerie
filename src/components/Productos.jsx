@@ -23,8 +23,6 @@ export const Productos = () => {
         const res = await axios.get(`/products?page=${currentPage}&limit=8&new=true`);
         setProducts((prevProducts) => [...prevProducts, ...res.data]);
         setIsLoading(false);
-
-        // Verificar si hay más productos para cargar
         if (res.data.length === 0 || res.data.length < 8) {
           setShowMoreButton(false);
         }
@@ -191,7 +189,7 @@ export const Productos = () => {
               />
               ) : (
                 <ProductsList
-                  products={filteredProducts.slice(0, visibleProducts)}
+                  products={filteredProducts}
                 />
               )}
               {showMoreButton && (
