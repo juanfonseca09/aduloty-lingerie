@@ -22,9 +22,6 @@ export const Productos = () => {
       try {
         const res = await axios.get('/products');
         setProducts(res.data);
-        if (categoria) {
-          setCat(categoria);
-        }
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
@@ -32,12 +29,19 @@ export const Productos = () => {
     };
     getProducts();
   }, []);
-
+  
   useEffect(() => {
     const filtered = filterAndSortProducts();
-    setFilteredProducts(filtered);
-  }, [products, cat, filters, sort]);
-
+    setFilteredProducts(filtered.slice(0, visibleProducts));
+  }, [products, cat, filters, sort, visibleProducts]);
+  
+  const loadMoreProducts = () => {
+    setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 8);
+    if (visibleProducts >= filteredProducts.length) {
+      setShowMoreButton(false);
+    }
+  };
+  
   const filterAndSortProducts = () => {
     let filtered = [...products];
 
@@ -67,13 +71,6 @@ export const Productos = () => {
       ...prevFilters,
       [name]: value,
     }));
-  };
-
-  const loadMoreProducts = () => {
-    setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 8);
-    if (visibleProducts + 8 >= filteredProducts.length) {
-      setShowMoreButton(false);
-    }
   };
 
   const location = useLocation();

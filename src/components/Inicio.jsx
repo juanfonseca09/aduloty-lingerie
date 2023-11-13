@@ -21,7 +21,7 @@ export const Inicio = () => {
       try {
         const res = await axios.get('/products');
         const destacados = res.data.filter((product) =>
-          product.categories.includes("Destacado")
+        product.categories.includes("Destacado")
         );
         setProducts(destacados);
       } catch (err) {
@@ -29,10 +29,6 @@ export const Inicio = () => {
     };
     getProducts();
   }, []);
-
-  const filteredProducts = products
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    .slice(0, 8);
 
   const handleVideoClick = () => {
     setIsSoundEnabled(!isSoundEnabled);
@@ -139,7 +135,7 @@ export const Inicio = () => {
           </div>
           <Container>
             <Row>
-              <ProductsList products={filteredProducts} />
+              <ProductsList products={products} />
             </Row>
             <Link to="/productos">
               <div className="row justify-content-center mt-5">
