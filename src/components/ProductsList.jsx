@@ -38,6 +38,7 @@ export const ProductsList = ({ products }) => {
               headers={{
                 Authorization: `Bearer ${import.meta.env.VITE_SECRET_TOKEN}`,
               }}
+              crossOrigin="anonymous"
             />
             <div className="boton-container">
               <div className="boton">
@@ -74,6 +75,7 @@ export const ProductsList = ({ products }) => {
               }}
               alt="Imagen relacionada"
               className="modal-image"
+              crossOrigin="anonymous"
             />
           )}
         </Modal.Body>
