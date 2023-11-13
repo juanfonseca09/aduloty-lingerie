@@ -50,6 +50,7 @@ export const Carrito = () => {
                             }
                             className="img-fluid img-thumbnail"
                             alt=""
+                            crossOrigin="anonymous"
                           />
                           <div className="texto">
                             <div>

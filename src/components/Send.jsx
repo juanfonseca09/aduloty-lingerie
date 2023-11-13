@@ -88,6 +88,7 @@ export const Send = ({ order }) => {
                       alt="Producto"
                       style={{ padding: "8px" }}
                       width="120px"
+                      crossOrigin="anonymous"
                     />
                   </Column>
                   <Column style={{ verticalAlign: "top", paddingLeft: "10px" }}>

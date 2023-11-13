@@ -56,6 +56,7 @@ export const Producto = () => {
               }
               alt="prod"
               className="img-fluid p-5"
+              crossOrigin="anonymous"
             />
           );
           setLoading(false);
@@ -171,6 +172,7 @@ export const Producto = () => {
                           alt="pro"
                           key={index}
                           className="img-icons"
+                          crossOrigin="anonymous"
                           onClick={() =>
                             setProductImage(
                               <img
@@ -180,6 +182,7 @@ export const Producto = () => {
                                 }
                                 alt="prod"
                                 className="img-fluid p-5"
+                                crossOrigin="anonymous"
                               />
                             )
                           }
