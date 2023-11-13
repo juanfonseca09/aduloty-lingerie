@@ -20,7 +20,7 @@ export const Productos = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get('/products');
+        const res = await axios.get('/products?new=true');
         setProducts(res.data);
         setIsLoading(false);
       } catch (err) {

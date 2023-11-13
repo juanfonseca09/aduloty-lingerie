@@ -19,7 +19,7 @@ export const Inicio = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get('/products');
+        const res = await axios.get('/products?new=true');
         const destacados = res.data.filter((product) =>
         product.categories.includes("Destacado")
         );
