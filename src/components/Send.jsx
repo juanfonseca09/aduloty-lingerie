@@ -19,15 +19,13 @@ import axios from "../axiosInstance";
 export const Send = ({ order }) => {
   useEffect(() => {
     const sendEmail = async () => {
+      const mailToSend = {
+          to: order.mail,
+          subject: "Comprobante de compra Aduloty Lingerie",
+          html: render(<Send order={order} />),
+        }
       try {
-        await axios.post(
-          "/send-mail/",
-          {
-            to: order.mail,
-            subject: "Comprobante de compra Aduloty Lingerie",
-            html: render(<Send order={order} />),
-          }
-        );
+        await axios.post("/send-mail", mailToSend);
         window.location.href = "https://adulotylingerie.com.uy";
       } catch (error) {}
     };

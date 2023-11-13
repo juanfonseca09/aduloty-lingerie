@@ -137,22 +137,24 @@ export const CheckOut = () => {
         if (sizeIndex !== -1) {
           const sizeQuantity =
             product.images[product.code].colors[0].sizes[sizeIndex].quantity;
-          await axios.put("/products/" + product._id, {
-            sizeIndex: sizeIndex,
-            quantity: sizeQuantity - product.quantity,
-          });
+            const sizeUpd = {
+              sizeIndex: sizeIndex,
+              quantity: sizeQuantity - product.quantity,
+            }
+          await axios.put("/products/" + product._id, sizeUpd);
         }
       }
     } catch (error) {}
   };
 
   const updateOrder = async (d1, d2, d3) => {
+    const upOrder = {
+      estatus: d1,
+      payid: d2,
+       merchant_order_id: d3,
+    }
     try {
-      await axios.put("/orders/" + cart.orderId, {
-        estatus: d1,
-        payid: d2,
-        merchant_order_id: d3,
-      });
+      await axios.put("/orders/" + cart.orderId, upOrder);
     } catch (error) {}
   };
   const handleSubmit = async (e) => {
