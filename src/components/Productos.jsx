@@ -14,32 +14,34 @@ export const Productos = () => {
   const [cat, setCat] = useState("");
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [visibleProducts, setVisibleProducts] = useState(8);
+  const [currentPage, setCurrentPage] = useState(1);
   const [showMoreButton, setShowMoreButton] = useState(true);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get('/products?new=true');
-        setProducts(res.data);
+        const res = await axios.get(`/products?page=${currentPage}&limit=8&new=true`);
+        setProducts((prevProducts) => [...prevProducts, ...res.data]);
         setIsLoading(false);
+
+        // Verificar si hay más productos para cargar
+        if (res.data.length === 0 || res.data.length < 8) {
+          setShowMoreButton(false);
+        }
       } catch (err) {
         setIsLoading(false);
       }
     };
     getProducts();
-  }, []);
+  }, [currentPage]);
   
   useEffect(() => {
     const filtered = filterAndSortProducts();
-    setFilteredProducts(filtered.slice(0, visibleProducts));
-  }, [products, cat, filters, sort, visibleProducts]);
+    setFilteredProducts(filtered);
+  }, [products, cat, filters, sort]);
   
   const loadMoreProducts = () => {
-    setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 8);
-    if (visibleProducts >= filteredProducts.length) {
-      setShowMoreButton(false);
-    }
+    setCurrentPage((prevPage) => prevPage + 1);
   };
   
   const filterAndSortProducts = () => {
