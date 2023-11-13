@@ -5,8 +5,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { removeProduct } from "../redux/store";
 import { useNavigate } from "react-router-dom";
-import { Global } from "../Global";
-import axios from '../axiosInstance';
+import axios from "../axiosInstance";
 
 export const Carrito = () => {
   const cart = useSelector((state) => state.cart);
@@ -49,6 +48,11 @@ export const Carrito = () => {
                                 product.images[product.code].url
                               }`
                             }
+                            headers={{
+                              Authorization: `Bearer ${
+                                import.meta.env.VITE_SECRET_TOKEN
+                              }`,
+                            }}
                             className="img-fluid img-thumbnail"
                             alt=""
                           />

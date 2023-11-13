@@ -9,10 +9,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setOrderId } from "../redux/store";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { codigos } from "../codigos";
-import { Global } from "../Global";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../axiosInstance";
 import Swal from "sweetalert2";
 
 export const CheckOut = () => {
@@ -65,11 +64,8 @@ export const CheckOut = () => {
         });
         const deleteOrder = async () => {
           try {
-            await axios.delete(Global.url + "orders/" + cart.orderId, {
-              withCredentials: true,
-            });
-          } catch (error) {
-          }
+            await axios.delete("/orders/" + cart.orderId);
+          } catch (error) {}
         };
         deleteOrder();
       }
@@ -83,17 +79,10 @@ export const CheckOut = () => {
       quantity: product.quantity,
     }));
     try {
-      const response = await axios({
-        method: "post",
-        url: Global.url + "checkout/create_preference",
-        withCredentials: true,
-        data: { items },
-      });
+      await axios.post("/checkout/create_preference", { items });
       const { id } = response.data;
       return id;
-    } catch (error) {
-
-    }
+    } catch (error) {}
   };
 
   const updateProduct = async () => {
@@ -148,37 +137,24 @@ export const CheckOut = () => {
         if (sizeIndex !== -1) {
           const sizeQuantity =
             product.images[product.code].colors[0].sizes[sizeIndex].quantity;
-          await axios({
-            method: "put",
-            url: Global.url + "products/" + product._id,
-            withCredentials: true,
-            data: {
-              sizeIndex: sizeIndex,
-              quantity: sizeQuantity - product.quantity,
-            },
+          await axios.put("/products/" + product._id, {
+            sizeIndex: sizeIndex,
+            quantity: sizeQuantity - product.quantity,
           });
         }
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const updateOrder = async (d1, d2, d3) => {
     try {
-      await axios({
-        method: "put",
-        url: Global.url + "orders/" + cart.orderId,
-        withCredentials: true,
-        data: {
-          estatus: d1,
-          payid: d2,
-          merchant_order_id: d3,
-        },
+      await axios.put("/orders/" + cart.orderId, {
+        estatus: d1,
+        payid: d2,
+        merchant_order_id: d3,
       });
-    } catch (error) {
-    }
+    } catch (error) {}
   };
-
   const handleSubmit = async (e) => {
     const formData = e.currentTarget;
     e.preventDefault();
@@ -233,15 +209,9 @@ export const CheckOut = () => {
       total: total,
     };
     try {
-      const res = await axios({
-        method: "post",
-        url: Global.url + "orders",
-        withCredentials: true,
-        data: orderData,
-      });
+      const res = await axios.post("/orders", orderData);
       dispatch(setOrderId(res.data._id));
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   const handleSubmit2 = async (e) => {

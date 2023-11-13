@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Col, Modal } from "react-bootstrap";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import axios from '../axiosInstance';
+import axios from "../axiosInstance";
 
 export const ProductsList = ({ products }) => {
   const [showModal, setShowModal] = useState(false);
@@ -28,7 +28,17 @@ export const ProductsList = ({ products }) => {
           className={index % 2 === 0 ? "item espacio" : "item"}
         >
           <div className="img-container">
-            <img src={axios.defaults.baseURL+`/products/get-image/${item.images[0].url}`} alt="" className="img-fluid" headers={{ Authorization: `Bearer ${import.meta.env.VITE_SECRET_TOKEN}` }}/>
+            <img
+              src={
+                axios.defaults.baseURL +
+                `/products/get-image/${item.images[0].url}`
+              }
+              alt=""
+              className="img-fluid"
+              headers={{
+                Authorization: `Bearer ${import.meta.env.VITE_SECRET_TOKEN}`,
+              }}
+            />
             <div className="boton-container">
               <div className="boton">
                 <FaSearch size={20} onClick={() => handleSearchClick(item)} />
@@ -49,21 +59,25 @@ export const ProductsList = ({ products }) => {
         </Col>
       ))}
       <Modal show={showModal} onHide={handleCloseModal} centered>
-                <Modal.Header closeButton>
-                  <Modal.Title>
-                    {selectedProduct && selectedProduct.title}
-                  </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  {selectedProduct && (
-                    <img
-                      src={axios.defaults.baseURL + `/products/get-image/${selectedProduct.images[0].url}`}
-                      alt="Imagen relacionada"
-                      className="modal-image"
-                    />
-                  )}
-                </Modal.Body>
-              </Modal>
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedProduct && selectedProduct.title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedProduct && (
+            <img
+              src={
+                axios.defaults.baseURL +
+                `/products/get-image/${selectedProduct.images[0].url}`
+              }
+              headers={{
+                Authorization: `Bearer ${import.meta.env.VITE_SECRET_TOKEN}`,
+              }}
+              alt="Imagen relacionada"
+              className="modal-image"
+            />
+          )}
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

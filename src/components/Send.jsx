@@ -14,27 +14,28 @@ import {
   Section,
   Text,
 } from "@react-email/components";
-import axios from "axios";
-import { Global } from "../Global";
+import axios from "../axiosInstance";
 
 export const Send = ({ order }) => {
-    useEffect(() => {
-        const sendEmail = async () => {
-          try {
-            await axios.post(Global.url + "send-mail/", {
-              to: order.mail,
-              subject: "Comprobante de compra Aduloty Lingerie",
-              html: render(<Send order={order} />),
-            },
-            {
-              withCredentials: true,
-            });
-            window.location.href = "https://aduloty-lingerie.netlify.app";
-          } catch (error) {
+  useEffect(() => {
+    const sendEmail = async () => {
+      try {
+        await axios.post(
+          Global.url + "send-mail/",
+          {
+            to: order.mail,
+            subject: "Comprobante de compra Aduloty Lingerie",
+            html: render(<Send order={order} />),
+          },
+          {
+            withCredentials: true,
           }
-        };
-        sendEmail();
-      }, []);
+        );
+        window.location.href = "https://adulotylingerie.com.uy";
+      } catch (error) {}
+    };
+    sendEmail();
+  }, []);
 
   return (
     <Html>
@@ -47,7 +48,7 @@ export const Send = ({ order }) => {
           <Hr style={global.hr} />
           <Section style={message}>
             <Img
-              src={"https://aduloty-lingerie.netlify.app/logo2.png"}
+              src={"https://adulotylingerie.com.uy/logo2.png"}
               width="116"
               height="66"
               alt="logo"
@@ -56,15 +57,17 @@ export const Send = ({ order }) => {
             <Heading style={global.heading}>¡RECIBIMOS TU PEDIDO!</Heading>
             <Text style={{ ...global.text, marginTop: 24 }}>
               Hola {order.name}, gracias por tu compra. Si tu compra fue en
-              EFECTIVO (CAJA DE AHORRO ITAU: 9122402, Nombre del titular: Abiggail Ippoliti), te recordamos que tienes 24 horas para abonar, de lo
-              contrario, tu pedido será cancelado. Si tu pedido fue abonado con
-              tarjeta por MERCADO PAGO, no te preocupes, ya hemos recibido tu
-              pago. Si realizaste el pedido por DAC, estará siendo despachado en
-              las próximas 48 horas (excepto fines de semana o feriados). Si
-              realizaste el pedido por CADETERIA, nos comunicaremos contigo para
-              coordinar el envío en las próximas 48 horas. Recuerda que ante
-              cualquier duda, puedes comunicarte a través del Whatsapp que
-              aparece en nuestra web o a traves de nuestro Instagram.
+              EFECTIVO (CAJA DE AHORRO ITAU: 9122402, Nombre del titular:
+              Abiggail Ippoliti), te recordamos que tienes 24 horas para abonar,
+              de lo contrario, tu pedido será cancelado. Si tu pedido fue
+              abonado con tarjeta por MERCADO PAGO, no te preocupes, ya hemos
+              recibido tu pago. Si realizaste el pedido por DAC, estará siendo
+              despachado en las próximas 48 horas (excepto fines de semana o
+              feriados). Si realizaste el pedido por CADETERIA, nos
+              comunicaremos contigo para coordinar el envío en las próximas 48
+              horas. Recuerda que ante cualquier duda, puedes comunicarte a
+              través del Whatsapp que aparece en nuestra web o a traves de
+              nuestro Instagram.
             </Text>
           </Section>
           <Hr style={global.hr} />
@@ -84,7 +87,12 @@ export const Send = ({ order }) => {
                 <Row key={product.productId}>
                   <Column>
                     <Img
-                      src={`${Global.url}products/get-image/${product.image}`}
+                      src={`${axios.defaults.baseURL}products/get-image/${product.image}`}
+                      headers={{
+                        Authorization: `Bearer ${
+                          import.meta.env.VITE_SECRET_TOKEN
+                        }`,
+                      }}
                       alt="Producto"
                       style={{ padding: "8px" }}
                       width="120px"

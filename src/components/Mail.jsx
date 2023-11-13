@@ -3,8 +3,7 @@ import { Send } from "./Send";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { resetCart } from "../redux/store";
-import { Global } from "../Global";
-import axios from "axios";
+import axios from "../axiosInstance";
 
 export const Mail = () => {
   const cart = useSelector((state) => state.cart);
@@ -15,11 +14,7 @@ export const Mail = () => {
   useEffect(() => {
     const getOrder = async () => {
       try {
-        const res = await axios({
-          method: "get",
-          url: Global.url + "orders/" + cart.orderId,
-          withCredentials: true,
-        });
+        const res = await axios.get("/orders/"+ cart.orderId);
         setOrder(res.data);
         setOrderLoaded(true); 
         dispatch(resetCart());

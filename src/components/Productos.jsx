@@ -20,7 +20,7 @@ export const Productos = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios('/products');
+        const res = await axios.get('/products');
         setProducts(res.data);
         if (categoria) {
           setCat(categoria);
@@ -72,7 +72,6 @@ export const Productos = () => {
 
   const loadMoreProducts = () => {
     setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 8);
-
     if (visibleProducts + 8 >= filteredProducts.length) {
       setShowMoreButton(false);
     }

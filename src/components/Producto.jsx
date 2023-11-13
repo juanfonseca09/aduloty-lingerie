@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./Producto.css";
 import { Button, Col, Container, Dropdown, Modal, Row } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../axiosInstance";
 import { addProduct } from "../redux/store";
 import { useDispatch } from "react-redux";
 import { ProductsList } from "./ProductsList";
-import { Global } from "../Global";
 import { FaPlus, FaMinus, FaCircle } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Audio } from "react-loader-spinner";
@@ -34,21 +33,30 @@ export const Producto = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await axios({
-          method: "get",
-          url: Global.url + `products/find/${id}`,
-          withCredentials: true,
-        });
+        const res = await axios.get(`/products/find/${id}`);
         setProduct(res.data);
         setColor(res.data.images[code].colors[0].color);
-        if(res.data.categories.includes('Unico Color')) setUnique(true);
-        if(res.data.categories.includes('Prendas SHEIN(Por Mayor)' || 'Accesorios Originales(Por Mayor)' || 'Indumentaria Original(Por Mayor)')) {setPmayor(true); setQuantity(10)}
+        if (res.data.categories.includes("Unico Color")) setUnique(true);
+        if (
+          res.data.categories.includes(
+            "Prendas SHEIN(Por Mayor)" ||
+              "Accesorios Originales(Por Mayor)" ||
+              "Indumentaria Original(Por Mayor)"
+          )
+        ) {
+          setPmayor(true);
+          setQuantity(10);
+        }
         if (res.data.images && res.data.images.length > 0) {
           setProductImage(
             <img
               src={
-                Global.url + `products/get-image/${res.data.images[code].url}`
+                axios.defaults.baseURL +
+                `/products/get-image/${res.data.images[code].url}`
               }
+              headers={{
+                Authorization: `Bearer ${import.meta.env.VITE_SECRET_TOKEN}`,
+              }}
               alt="prod"
               className="img-fluid p-5"
             />
@@ -56,7 +64,7 @@ export const Producto = () => {
           setLoading(false);
         }
 
-        const res2 = await axios.get(Global.url + "products/");
+        const res2 = await axios.get("/products/");
         const filteredRelatedProducts = res2.data
           .filter(
             (item) =>
@@ -67,8 +75,7 @@ export const Producto = () => {
           )
           .slice(0, 4);
         setFiltered(filteredRelatedProducts);
-      } catch (error) {
-      }
+      } catch (error) {}
     };
     getProduct();
   }, [id, code]);
@@ -133,7 +140,10 @@ export const Producto = () => {
                         if (s.quantity > 0) {
                           return (
                             <Dropdown.Item
-                              onClick={() => {setSize(s.size); setSizeQuantity(s.quantity)}}
+                              onClick={() => {
+                                setSize(s.size);
+                                setSizeQuantity(s.quantity);
+                              }}
                               key={s._id}
                             >
                               {s.size}
@@ -152,64 +162,90 @@ export const Producto = () => {
                 (Ver Guia de Talles)
               </a>
               <br />
-              {unique ? (<div className="d-flex mb-4">
-                {product.images && product.images.length > 0
-                  ? product.images.map((c, index) => (
-                    <img
-                    src={
-                      Global.url + `products/get-image/${c.url}`
-                    }
-                    alt="pro"
-                    key={index}
-                    className="img-icons"
-                    onClick={() => setProductImage(<img
-                      src={
-                        Global.url + `products/get-image/${c.url}`
-                      }
-                      alt="prod"
-                      className="img-fluid p-5"
-                    />)}
-                  />
-                    ))
-                  : null}
-              </div>) : (<>
-              <label className="form-label">Seleccione un Color:</label>
-              <div className="d-flex mb-4">
-                {product.images && product.images.length > 0
-                  ? product.images.map((c, index) => (
-                      <FaCircle
-                        key={c.colors[0].color}
-                        size={30}
-                        onClick={() => {
-                          handleColorChange(c.colors[0].color);
-                          setCode(index);
-                          setSize("Talle");
-                          setQuantity(1);
-                          setSizeQuantity(0);
-                        }}
-                        style={{ color: c.colors[0].color, marginRight: "1vh" }}
-                      />
-                    ))
-                  : null}
-              </div>
-              </>)}
+              {unique ? (
+                <div className="d-flex mb-4">
+                  {product.images && product.images.length > 0
+                    ? product.images.map((c, index) => (
+                        <img
+                          src={
+                            axios.defaults.baseURL +
+                            `/products/get-image/${c.url}`
+                          }
+                          headers={{
+                            Authorization: `Bearer ${
+                              import.meta.env.VITE_SECRET_TOKEN
+                            }`,
+                          }}
+                          alt="pro"
+                          key={index}
+                          className="img-icons"
+                          onClick={() =>
+                            setProductImage(
+                              <img
+                                src={
+                                  axios.defaults.baseURL +
+                                  `/products/get-image/${c.url}`
+                                }
+                                headers={{
+                                  Authorization: `Bearer ${
+                                    import.meta.env.VITE_SECRET_TOKEN
+                                  }`,
+                                }}
+                                alt="prod"
+                                className="img-fluid p-5"
+                              />
+                            )
+                          }
+                        />
+                      ))
+                    : null}
+                </div>
+              ) : (
+                <>
+                  <label className="form-label">Seleccione un Color:</label>
+                  <div className="d-flex mb-4">
+                    {product.images && product.images.length > 0
+                      ? product.images.map((c, index) => (
+                          <FaCircle
+                            key={c.colors[0].color}
+                            size={30}
+                            onClick={() => {
+                              handleColorChange(c.colors[0].color);
+                              setCode(index);
+                              setSize("Talle");
+                              setQuantity(1);
+                              setSizeQuantity(0);
+                            }}
+                            style={{
+                              color: c.colors[0].color,
+                              marginRight: "1vh",
+                            }}
+                          />
+                        ))
+                      : null}
+                  </div>
+                </>
+              )}
               {sizeQuantity != 0 && (
-              <div className="d-flex">
-                <FaMinus
-                  className="simb"
-                  size={15}
-                  onClick={() => {
-                    if (!pmayor && quantity != 1) setQuantity(quantity - 1)
-                    else if (pmayor && quantity != 10) setQuantity(quantity - 1)
-                  }}
-                />
-                <h4>{quantity}</h4>
-                <FaPlus
-                  className="simb"
-                  size={15}
-                  onClick={() => {quantity < sizeQuantity && setQuantity(quantity + 1)}}
-                />
-              </div>
+                <div className="d-flex">
+                  <FaMinus
+                    className="simb"
+                    size={15}
+                    onClick={() => {
+                      if (!pmayor && quantity != 1) setQuantity(quantity - 1);
+                      else if (pmayor && quantity != 10)
+                        setQuantity(quantity - 1);
+                    }}
+                  />
+                  <h4>{quantity}</h4>
+                  <FaPlus
+                    className="simb"
+                    size={15}
+                    onClick={() => {
+                      quantity < sizeQuantity && setQuantity(quantity + 1);
+                    }}
+                  />
+                </div>
               )}
               <div className="row justify-content-center p-4">
                 <Button
