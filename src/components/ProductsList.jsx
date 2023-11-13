@@ -31,13 +31,10 @@ export const ProductsList = ({ products }) => {
             <img
               src={
                 axios.defaults.baseURL +
-                `/products/get-image/${item.images[0].url}`
+                `/get-image/${item.images[0].url}`
               }
               alt=""
               className="img-fluid"
-              headers={{
-                Authorization: `Bearer ${import.meta.env.VITE_SECRET_TOKEN}`,
-              }}
               crossOrigin="anonymous"
             />
             <div className="boton-container">
@@ -68,11 +65,8 @@ export const ProductsList = ({ products }) => {
             <img
               src={
                 axios.defaults.baseURL +
-                `/products/get-image/${selectedProduct.images[0].url}`
+                `/get-image/${selectedProduct.images[0].url}`
               }
-              headers={{
-                Authorization: `Bearer ${import.meta.env.VITE_SECRET_TOKEN}`,
-              }}
               alt="Imagen relacionada"
               className="modal-image"
               crossOrigin="anonymous"
