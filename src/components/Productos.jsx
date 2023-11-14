@@ -34,7 +34,8 @@ export const Productos = () => {
   };
 
   const location = useLocation();
-  const categoria = new URLSearchParams(location.search).get("categoria");
+  const searchParams = location.searchParams;
+  const categoria = searchParams.get("categoria");
   if (categoria) setCat(categoria);
 
   return (
