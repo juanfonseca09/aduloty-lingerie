@@ -20,7 +20,7 @@ export const Productos = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get("/products");
+        const res = await axios.get('/products');
         setProducts(res.data);
         setIsLoading(false);
       } catch (err) {
@@ -29,17 +29,15 @@ export const Productos = () => {
     };
     getProducts();
   }, []);
-
+  
   useEffect(() => {
     const filtered = filterAndSortProducts();
     setFilteredProducts(filtered.slice(0, visibleProducts));
   }, [products, cat, filters, sort, visibleProducts]);
-
+  
   const loadMoreProducts = async () => {
     try {
-      const res = await axios.get(
-        `/products?page=${Math.ceil(visibleProducts / 8) + 1}`
-      );
+      const res = await axios.get(`/products?page=${Math.ceil(visibleProducts / 8) + 1}`);
       const newProducts = res.data;
 
       if (newProducts.length === 0) {
@@ -52,7 +50,7 @@ export const Productos = () => {
       console.error("Error fetching more products:", error);
     }
   };
-
+  
   const filterAndSortProducts = () => {
     let filtered = [...products];
 
@@ -74,6 +72,14 @@ export const Productos = () => {
       return [...filtered].sort((a, b) => b.price - a.price);
     }
     return filtered;
+  };
+
+  const handleFilters = (e) => {
+    const { name, value } = e.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value,
+    }));
   };
 
   const location = useLocation();
@@ -98,6 +104,8 @@ export const Productos = () => {
                   <div>
                     <div className="btncont">
                       <Dropdown.Toggle
+                        name="categories"
+                        onChange={handleFilters}
                         variant="light"
                         className="btn-custom"
                         id="dropdown-basic"
@@ -177,33 +185,33 @@ export const Productos = () => {
               </div>
               {isLoading ? (
                 <Audio
-                  height={80}
-                  width={80}
-                  radius={9}
-                  color="#FB75C7"
-                  ariaLabel="loading"
-                  wrapperStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                />
+                height={80}
+                width={80}
+                radius={9}
+                color="#FB75C7"
+                ariaLabel="loading"
+                wrapperStyle={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              />
               ) : (
                 <ProductsList
                   products={filteredProducts.slice(0, visibleProducts)}
                 />
               )}
               {showMoreButton && (
-                <div className="d-flex justify-content-center py-4">
-                  <Button
-                    variant="light"
-                    className="btn-custom"
-                    onClick={loadMoreProducts}
-                  >
-                    MOSTRAR MÁS
-                  </Button>
-                </div>
-              )}
+        <div className="d-flex justify-content-center py-4">
+          <Button
+            variant="light"
+            className="btn-custom"
+            onClick={loadMoreProducts}
+          >
+            MOSTRAR MÁS
+          </Button>
+        </div>
+      )}
             </Row>
           </div>
         </Container>
