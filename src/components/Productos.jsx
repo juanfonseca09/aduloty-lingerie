@@ -34,10 +34,9 @@ export const Productos = () => {
   };
 
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const categoria = searchParams.get("categoria");
+  const { categoria } = location.state;
   if (categoria) setCat(categoria);
-
+  
   return (
     <div>
       <Buscador products={products} />

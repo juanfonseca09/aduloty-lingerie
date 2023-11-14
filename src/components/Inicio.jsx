@@ -19,11 +19,8 @@ export const Inicio = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get('/products?new=true');
-        const destacados = res.data.filter((product) =>
-        product.categories.includes("Destacado")
-        );
-        setProducts(destacados);
+        const res = await axios.get('/products?categories="destacado"');
+        setProducts(res.data);
       } catch (err) {
       }
     };
@@ -38,7 +35,7 @@ export const Inicio = () => {
   };
 
   const redir = (cat) => {
-    navigate(`/productos?categoria=${cat}`);
+    navigate('/productos', {state: {categorie: cat}});
   };
 
   return (
