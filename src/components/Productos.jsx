@@ -18,9 +18,12 @@ export const Productos = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
+        if (currentPage === 1) {
+          setProducts([]);
+        }
         const res = await axios.get(`/products?page=${currentPage}&limit=8&sort=${sort}&category=${cat}`);
         const hasMoreProducts = res.data.length > 0;
-        setProducts((prevProducts) => [...prevProducts, ...res.data]);
+        setProducts((prevProducts) => (currentPage === 1 ? res.data : [...prevProducts, ...res.data]));
         setIsLoading(false);
         setShowMoreButton(hasMoreProducts);
       } catch (err) {
