@@ -24,7 +24,7 @@ export const Productos = () => {
         const res = await axios.get(`/products?page=${currentPage}&limit=8&sort=${sort}&category=${cat}`);
         setProducts((prevProducts) => (currentPage === 1 ? res.data : [...prevProducts, ...res.data]));
         setIsLoading(false);
-        setShowMoreButton(res.data.length>8);
+        setShowMoreButton(products.length >= 8);
       } catch (err) {
         setIsLoading(false);
       }
