@@ -28,14 +28,15 @@ export const Productos = () => {
       }
     };
     getProducts();
-    const location = useLocation();
-    const categoria = new URLSearchParams(location.search).get("categoria");
-    if (categoria) setCat(categoria);
   }, [currentPage, cat, sort]);
   
   const loadMoreProducts = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
+
+  const location = useLocation();
+  const categoria = new URLSearchParams(location.search).get("categoria");
+  if (categoria) setCat(categoria);
 
   return (
     <div>
