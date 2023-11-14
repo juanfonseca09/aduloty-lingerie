@@ -33,9 +33,14 @@ export const Productos = () => {
   
   useEffect(() => {
     const filtered = filterAndSortProducts();
-    console.log(filtered);
+    console.log(filtered)
     setFilteredProducts(filtered.slice(0, visibleProducts));
-  }, [products, cat, filters, sort, visibleProducts]);
+    setVisibleProducts(8); 
+  }, [products, cat, filters, sort]);
+
+  useEffect(() => {
+    setShowMoreButton(true); 
+  }, [cat]);
   
   const loadMoreProducts = async () => {
     try {
