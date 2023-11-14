@@ -22,6 +22,7 @@ export const Productos = () => {
       try {
         const res = await axios.get('/products');
         setProducts(res.data);
+        console.log(res.data);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
@@ -32,6 +33,7 @@ export const Productos = () => {
   
   useEffect(() => {
     const filtered = filterAndSortProducts();
+    console.log(filtered);
     setFilteredProducts(filtered.slice(0, visibleProducts));
   }, [products, cat, filters, sort, visibleProducts]);
   
