@@ -14,42 +14,48 @@ export const Productos = () => {
   const [cat, setCat] = useState("");
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [visibleProducts, setVisibleProducts] = useState(8);
   const [showMoreButton, setShowMoreButton] = useState(true);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const endpoint = cat
-          ? `/products?page=${currentPage}&limit=8&category=${cat}`
-          : `/products?page=${currentPage}&limit=8&new=true`;
-
-        const res = await axios.get(endpoint);
-        const newProducts = res.data;
-
-        if (newProducts.length === 0 || newProducts.length < 8) {
-          setShowMoreButton(false);
-        }
-
-        setProducts((prevProducts) => [...prevProducts, ...newProducts]);
+        const res = await axios.get("/products");
+        setProducts(res.data);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
       }
     };
-
     getProducts();
+  }, []);
 
+  useEffect(() => {
     const filtered = filterAndSortProducts();
-    setFilteredProducts(filtered);
-  }, [currentPage, cat, filters, sort]);
+    setFilteredProducts(filtered.slice(0, visibleProducts));
+  }, [products, cat, filters, sort, visibleProducts]);
 
-  const loadMoreProducts = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+  const loadMoreProducts = async () => {
+    try {
+      const res = await axios.get(
+        `/products?page=${Math.ceil(visibleProducts / 8) + 1}`
+      );
+      const newProducts = res.data;
+
+      if (newProducts.length === 0) {
+        setShowMoreButton(false);
+      } else {
+        setProducts((prevProducts) => [...prevProducts, ...newProducts]);
+        setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 8);
+      }
+    } catch (error) {
+      console.error("Error fetching more products:", error);
+    }
   };
 
   const filterAndSortProducts = () => {
     let filtered = [...products];
+
     if (cat) {
       filtered = filtered.filter((item) => item.categories.includes(cat));
     }
@@ -68,14 +74,6 @@ export const Productos = () => {
       return [...filtered].sort((a, b) => b.price - a.price);
     }
     return filtered;
-  };
-
-  const handleFilters = (e) => {
-    const { name, value } = e.target;
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: value,
-    }));
   };
 
   const location = useLocation();
@@ -100,8 +98,6 @@ export const Productos = () => {
                   <div>
                     <div className="btncont">
                       <Dropdown.Toggle
-                        name="categories"
-                        onChange={handleFilters}
                         variant="light"
                         className="btn-custom"
                         id="dropdown-basic"
@@ -193,7 +189,9 @@ export const Productos = () => {
                   }}
                 />
               ) : (
-                <ProductsList products={filteredProducts} />
+                <ProductsList
+                  products={filteredProducts.slice(0, visibleProducts)}
+                />
               )}
               {showMoreButton && (
                 <div className="d-flex justify-content-center py-4">
