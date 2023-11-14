@@ -79,13 +79,14 @@ export const CheckOut = () => {
       quantity: product.quantity,
     }));
     try {
-      await axios.post("/checkout/create_preference", { items });
+      const response = await axios.post("/checkout/create_preference", { items });
       const { id } = response.data;
       return id;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
+  
 
   const updateProduct = async () => {
     try {
