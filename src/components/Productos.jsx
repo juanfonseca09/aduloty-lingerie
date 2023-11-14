@@ -18,9 +18,6 @@ export const Productos = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        if (currentPage === 1) {
-          setProducts([]);
-        }
         const res = await axios.get(`/products?page=${currentPage}&limit=8&sort=${sort}&category=${cat}`);
         setProducts((prevProducts) => (currentPage === 1 ? res.data : [...prevProducts, ...res.data]));
         setIsLoading(false);
@@ -70,41 +67,41 @@ export const Productos = () => {
                   </div>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => setCat("")}>
+                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setCat("")}}>
                       Todas
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => setCat("Victoria's Secret")}>
+                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setCat("Victoria's Secret")}}>
                       Victoria's Secret
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => setCat("Lencería")}>
+                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setCat("Lencería")}}>
                       Lencería
                     </Dropdown.Item>
                     <Dropdown.Item
-                      onClick={() => setCat("Preventa Accesorios Originales")}
+                      onClick={() => {setProducts([]); setCurrentPage(1); setCat("Preventa Accesorios Originales")}}
                     >
                       Preventa Accesorios Originales
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => setCat("Indumentaria")}>
+                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setCat("Indumentaria")}}>
                       Indumentaria
                     </Dropdown.Item>
                     <Dropdown.Item
-                      onClick={() => setCat("Indumentaria Original")}
+                      onClick={() => {setProducts([]); setCurrentPage(1); setCat("Indumentaria Original")}}
                     >
                       Indumentaria Original
                     </Dropdown.Item>
                     <Dropdown.Item disabled={true}>Por Mayor:</Dropdown.Item>
                     <Dropdown.Item
-                      onClick={() => setCat("Prendas SHEIN(Por Mayor)")}
+                      onClick={() => {setProducts([]); setCurrentPage(1); setCat("Prendas SHEIN(Por Mayor)")}}
                     >
                       Prendas SHEIN
                     </Dropdown.Item>
                     <Dropdown.Item
-                      onClick={() => setCat("Accesorios Originales(Por Mayor)")}
+                      onClick={() => {setProducts([]); setCurrentPage(1); setCat("Accesorios Originales(Por Mayor)")}}
                     >
                       Accesorios Originales
                     </Dropdown.Item>
                     <Dropdown.Item
-                      onClick={() => setCat("Indumentaria Original(Por Mayor)")}
+                      onClick={() => {setProducts([]); setCurrentPage(1); setCat("Indumentaria Original(Por Mayor)")}}
                     >
                       Indumentaria Original
                     </Dropdown.Item>
@@ -125,13 +122,13 @@ export const Productos = () => {
                   </div>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => setSort("newest")}>
+                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setSort("newest")}}>
                       Mas Nuevo
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => setSort("asc")}>
+                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setSort("asc")}}>
                       Precio: - a +
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => setSort("desc")}>
+                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setSort("desc")}}>
                       Precio: + a -
                     </Dropdown.Item>
                   </Dropdown.Menu>
