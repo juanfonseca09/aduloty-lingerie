@@ -22,10 +22,9 @@ export const Productos = () => {
           setProducts([]);
         }
         const res = await axios.get(`/products?page=${currentPage}&limit=8&sort=${sort}&category=${cat}`);
-        const hasMoreProducts = res.data.length > 0;
         setProducts((prevProducts) => (currentPage === 1 ? res.data : [...prevProducts, ...res.data]));
         setIsLoading(false);
-        setShowMoreButton(hasMoreProducts);
+        setShowMoreButton(res.data.length<8);
       } catch (err) {
         setIsLoading(false);
       }
