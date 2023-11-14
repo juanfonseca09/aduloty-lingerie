@@ -20,31 +20,36 @@ export const Productos = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get(`/products?page=${currentPage}&limit=8&new=true`);
-        setProducts((prevProducts) => [...prevProducts, ...res.data]);
-        setIsLoading(false);
-        if (res.data.length === 0 || res.data.length < 8) {
+        const endpoint = cat
+          ? `/products?page=${currentPage}&limit=8&category=${cat}`
+          : `/products?page=${currentPage}&limit=8&new=true`;
+
+        const res = await axios.get(endpoint);
+        const newProducts = res.data;
+
+        if (newProducts.length === 0 || newProducts.length < 8) {
           setShowMoreButton(false);
         }
+
+        setProducts((prevProducts) => [...prevProducts, ...newProducts]);
+        setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
       }
     };
+
     getProducts();
-  }, [currentPage]);
-  
-  useEffect(() => {
+
     const filtered = filterAndSortProducts();
     setFilteredProducts(filtered);
-  }, [products, cat, filters, sort]);
-  
+  }, [currentPage, cat, filters, sort]);
+
   const loadMoreProducts = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
-  
+
   const filterAndSortProducts = () => {
     let filtered = [...products];
-
     if (cat) {
       filtered = filtered.filter((item) => item.categories.includes(cat));
     }
@@ -176,21 +181,19 @@ export const Productos = () => {
               </div>
               {isLoading ? (
                 <Audio
-                height={80}
-                width={80}
-                radius={9}
-                color="#FB75C7"
-                ariaLabel="loading"
-                wrapperStyle={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              />
-              ) : (
-                <ProductsList
-                  products={filteredProducts}
+                  height={80}
+                  width={80}
+                  radius={9}
+                  color="#FB75C7"
+                  ariaLabel="loading"
+                  wrapperStyle={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 />
+              ) : (
+                <ProductsList products={filteredProducts} />
               )}
               {showMoreButton && (
                 <div className="d-flex justify-content-center py-4">
