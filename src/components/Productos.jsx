@@ -15,7 +15,7 @@ export const Productos = () => {
   const [showMoreButton, setShowMoreButton] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const location = useLocation();
-  const { categorie } = location.state;
+  const { categorie } = location.state || {};
 
   useEffect(() => {
     const getProducts = async () => {
