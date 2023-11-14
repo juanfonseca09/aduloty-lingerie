@@ -9,88 +9,33 @@ import { Audio } from "react-loader-spinner";
 
 export const Productos = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("newest");
   const [cat, setCat] = useState("");
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [visibleProducts, setVisibleProducts] = useState(8);
   const [showMoreButton, setShowMoreButton] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get('/products');
-        setProducts(res.data);
-        console.log(res.data);
+        const res = await axios.get(`/products?page=${currentPage}&limit=8&sort=${sort}&category=${cat}`);
+        const hasMoreProducts = res.data.length > 0;
+        setProducts((prevProducts) => [...prevProducts, ...res.data]);
         setIsLoading(false);
+        setShowMoreButton(hasMoreProducts);
       } catch (err) {
         setIsLoading(false);
       }
     };
     getProducts();
-  }, []);
+    const location = useLocation();
+    const categoria = new URLSearchParams(location.search).get("categoria");
+    if (categoria) setCat(categoria);
+  }, [currentPage, cat, sort]);
   
-  useEffect(() => {
-    const filtered = filterAndSortProducts();
-    console.log(filtered)
-    setFilteredProducts(filtered.slice(0, visibleProducts));
-    setVisibleProducts(8); 
-  }, [products, cat, filters, sort]);
-
-  useEffect(() => {
-    setShowMoreButton(true); 
-  }, [cat]);
-  
-  const loadMoreProducts = async () => {
-    try {
-      const res = await axios.get(`/products?page=${Math.ceil(visibleProducts / 8) + 1}`);
-      const newProducts = res.data;
-
-      if (newProducts.length === 0) {
-        setShowMoreButton(false);
-      } else {
-        setProducts((prevProducts) => [...prevProducts, ...newProducts]);
-        setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 8);
-      }
-    } catch (error) {
-      console.error("Error fetching more products:", error);
-    }
+  const loadMoreProducts = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
   };
-  
-  const filterAndSortProducts = () => {
-    let filtered = [...products];
-
-    if (cat) {
-      filtered = filtered.filter((item) => item.categories.includes(cat));
-    }
-
-    filtered = Object.entries(filters).reduce((acc, [key, value]) => {
-      return acc.filter((item) => item[key].includes(value));
-    }, filtered);
-
-    if (sort === "newest") {
-      return [...filtered].sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      );
-    } else if (sort === "asc") {
-      return [...filtered].sort((a, b) => a.price - b.price);
-    } else if (sort === "desc") {
-      return [...filtered].sort((a, b) => b.price - a.price);
-    }
-    return filtered;
-  };
-
-  const handleFilters = (e) => {
-    const { name, value } = e.target;
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: value,
-    }));
-  };
-
-  const location = useLocation();
-  const categoria = new URLSearchParams(location.search).get("categoria");
 
   return (
     <div>
@@ -112,7 +57,6 @@ export const Productos = () => {
                     <div className="btncont">
                       <Dropdown.Toggle
                         name="categories"
-                        onChange={handleFilters}
                         variant="light"
                         className="btn-custom"
                         id="dropdown-basic"
@@ -205,20 +149,20 @@ export const Productos = () => {
               />
               ) : (
                 <ProductsList
-                  products={filteredProducts.slice(0, visibleProducts)}
+                  products={products}
                 />
               )}
               {showMoreButton && (
-        <div className="d-flex justify-content-center py-4">
-          <Button
-            variant="light"
-            className="btn-custom"
-            onClick={loadMoreProducts}
-          >
-            MOSTRAR MÁS
-          </Button>
-        </div>
-      )}
+                <div className="d-flex justify-content-center py-4">
+                  <Button
+                    variant="light"
+                    className="btn-custom"
+                    onClick={loadMoreProducts}
+                  >
+                    MOSTRAR MÁS
+                  </Button>
+                </div>
+              )}
             </Row>
           </div>
         </Container>
