@@ -16,10 +16,8 @@ export const Productos = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const location = useLocation();
   const { categorie } = location.state;
-  console.log(categorie)
 
   useEffect(() => {
-    if (categorie) setCat(categorie);
     const getProducts = async () => {
       try {
         const res = await axios.get(`/products?page=${currentPage}&limit=8&sort=${sort}&category=${cat}`);
@@ -30,7 +28,12 @@ export const Productos = () => {
         setIsLoading(false);
       }
     };
-    getProducts();
+    if (categorie) {
+      setCat(categorie);
+      getProducts();
+    } else {
+      getProducts();
+    }
   }, [currentPage, cat, sort]);
   
   const loadMoreProducts = () => {

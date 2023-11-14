@@ -116,6 +116,7 @@
   left: 50%;
   transform: translate(-50%, -55%);
   color: #000;
+  z-index: 1;
 }
 
 .nombre p {

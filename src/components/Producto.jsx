@@ -21,6 +21,7 @@ export const Producto = () => {
   const [productImage, setProductImage] = useState(null);
   const [pmayor, setPmayor] = useState(false);
   const [code, setCode] = useState(0);
+  const [cat, setCat] = useState("");
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ export const Producto = () => {
       try {
         const res = await axios.get(`/products/find/${id}`);
         setProduct(res.data);
+        setCat(res.data.categories[0])
         setColor(res.data.images[code].colors[0].color);
         if (res.data.categories.includes("Unico Color")) setUnique(true);
         if (
@@ -61,18 +63,8 @@ export const Producto = () => {
           );
           setLoading(false);
         }
-
-        const res2 = await axios.get("/products/");
-        const filteredRelatedProducts = res2.data
-          .filter(
-            (item) =>
-              item._id !== id &&
-              item.categories.some((category) =>
-                res.data.categories.includes(category)
-              )
-          )
-          .slice(0, 4);
-        setFiltered(filteredRelatedProducts);
+        const res2 = await axios.get(`/products?categories=${cat}&limit=4`);
+        setFiltered(res2.data);
       } catch (error) {}
     };
     getProduct();
@@ -250,7 +242,6 @@ export const Producto = () => {
             </Col>
             <div className="otros d-flex flex-column align-items-center">
               <h2 className="text-center">Productos Relacionados</h2>
-
               <div className="d-flex flex-wrap justify-content-center p-3">
                 <ProductsList products={filtered} />
               </div>
