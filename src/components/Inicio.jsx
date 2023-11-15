@@ -22,6 +22,7 @@ export const Inicio = () => {
     const getProducts = async () => {
       try {
         const res = await axios.get('/products?category="Lencería"');
+        console.log(res.data)
         setProducts(res.data);
         setIsLoading(false);
       } catch (err) {
