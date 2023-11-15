@@ -83,7 +83,8 @@ export const CheckOut = () => {
     const orderid = id;
     try {
       const response = await axios.post("/checkout/create_preference", { items, orderid });
-      setPreferenceId(response.data.id);
+      const { id } = response.data;
+      return id;
     } catch (error) {
       console.log(error);
     }
@@ -215,7 +216,8 @@ export const CheckOut = () => {
     try {
       const res = await axios.post("/orders", orderData);
       dispatch(setOrderId(res.data._id));
-      await createPreference(res.data._id);
+      const ordid = await createPreference();
+      setPreferenceId(ordid);
     } catch (error) {}
   };
 
