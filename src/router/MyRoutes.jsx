@@ -7,6 +7,7 @@ import { Producto } from '../components/Producto';
 import { CheckOut } from '../components/CheckOut';
 import { Preguntas } from '../components/Preguntas';
 import { Mail } from '../components/Mail';
+import { Reset } from '../components/Reset';
 
 export const MyRoutes = () => {
   return (
@@ -19,7 +20,8 @@ export const MyRoutes = () => {
             <Route path='/preguntas-frecuentes' element={<Preguntas />} />
             <Route path='/producto/:id' element={<Producto/>} />    
             <Route path='/checkout' element={<CheckOut/>} />   
-            <Route path='/mail' element={<Mail/>} />       
+            <Route path='/mail' element={<Mail/>} /> 
+            <Route path='/reset' element={<Reset/>} />       
         </Routes>
 
   )
