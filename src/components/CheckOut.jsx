@@ -185,9 +185,9 @@ export const CheckOut = () => {
           showConfirmButton: false,
           timer: 5000,
         });
-        setTimeout(() => {
-          navigate("/mail");
-        }, 4500);
+        // setTimeout(() => {
+        //   navigate("/mail");
+        // }, 4500);
       }
     }
   };
