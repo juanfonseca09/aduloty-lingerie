@@ -36,7 +36,7 @@ export const CheckOut = () => {
     setTotal(cart.total);
     const searchParams = new URLSearchParams(location.search);
     const status = searchParams.get("status");
-    // if (status === null) navigate("/checkout");
+    if (status === null) navigate("/checkout");
     if (status != null) {
       const orderid = searchParams.get("external_reference");
       const paymentId = searchParams.get("payment_id");
@@ -53,9 +53,9 @@ export const CheckOut = () => {
           showConfirmButton: false,
           timer: 5000,
         });
-        // setTimeout(() => {
-        //   navigate("/mail");
-        // }, 4500);
+        setTimeout(() => {
+          navigate("/mail");
+        }, 4500);
       } else if (status == "declined") {
         Swal.fire({
           position: "center",
@@ -186,9 +186,9 @@ export const CheckOut = () => {
           showConfirmButton: false,
           timer: 5000,
         });
-        // setTimeout(() => {
-        //   navigate("/mail");
-        // }, 4500);
+        setTimeout(() => {
+          navigate("/mail");
+        }, 4500);
       }
     }
   };
