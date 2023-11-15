@@ -74,13 +74,13 @@ export const CheckOut = () => {
     }
   }, []);
 
-  const createPreference = async (id) => {
+  const createPreference = async (ide) => {
     const items = cart.products.map((product) => ({
       title: product.title,
       unit_price: product.price,
       quantity: product.quantity,
     }));
-    const orderid = id;
+    const orderid = ide;
     try {
       const response = await axios.post("/checkout/create_preference", { items, orderid });
       const { id } = response.data;
@@ -216,7 +216,7 @@ export const CheckOut = () => {
     try {
       const res = await axios.post("/orders", orderData);
       dispatch(setOrderId(res.data._id));
-      const ordid = await createPreference();
+      const ordid = await createPreference(res.data._id);
       setPreferenceId(ordid);
     } catch (error) {}
   };
