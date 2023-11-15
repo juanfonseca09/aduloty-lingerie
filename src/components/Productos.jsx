@@ -18,7 +18,7 @@ export const Productos = () => {
   const { categorie } = location.state || {};
 
   useEffect(() => {
-    setIsLoading(true);
+    if(currentPage === 1) setIsLoading(true);
     const getProducts = async () => {
       try {
         let res;
