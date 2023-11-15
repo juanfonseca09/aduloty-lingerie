@@ -75,15 +75,15 @@ export const CheckOut = () => {
     }
   }, []);
 
-  const createPreference = async () => {
+  const createPreference = async (ordid) => {
     const items = cart.products.map((product) => ({
       title: product.title,
       unit_price: product.price,
       quantity: product.quantity,
     }));
-    const orderid = ordid;
+  
     try {
-      const response = await axios.post("/checkout/create_preference", { items, orderid });
+      const response = await axios.post("/checkout/create_preference", { items, orderid: ordid });
       const { id } = response.data;
       return id;
     } catch (error) {
@@ -168,27 +168,35 @@ export const CheckOut = () => {
     e.preventDefault();
     setValidated(true);
     if (formData.checkValidity()) {
-      await sendOrderDataToServer();
-      if (btn === "mercadoPago") {
-        const id = await createPreference();
-        if (id) {
-          setPreferenceId(id);
+      try {
+        const ordId = await sendOrderDataToServer();
+        setOrdid(ordId); 
+  
+        if (btn === "mercadoPago") {
+          const id = await createPreference(ordId);
+          if (id) {
+            setPreferenceId(id);
+          }
         }
-      }
-      setBtn2(false);
-      if (btn === "debitoBancario") {
-        updateProduct();
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Compra Realizada Correctamente",
-          text: "Hemos enviado un mail a tu casilla de correo con las instrucciones a seguir, gracias por tu compra!",
-          showConfirmButton: false,
-          timer: 5000,
-        });
-        setTimeout(() => {
-          navigate("/mail");
-        }, 4500);
+  
+        setBtn2(false);
+  
+        if (btn === "debitoBancario") {
+          updateProduct();
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Compra Realizada Correctamente",
+            text: "Hemos enviado un mail a tu casilla de correo con las instrucciones a seguir, gracias por tu compra!",
+            showConfirmButton: false,
+            timer: 5000,
+          });
+  
+          setTimeout(() => {
+            navigate("/mail");
+          }, 4500);
+        }
+      } catch (error) {
       }
     }
   };
@@ -218,8 +226,9 @@ export const CheckOut = () => {
     };
     try {
       const res = await axios.post("/orders", orderData);
-      setOrdid(res.data._id);
-      dispatch(setOrderId(res.data._id));
+      const orderId = res.data._id;
+      dispatch(setOrderId(orderId));
+      return orderId;
     } catch (error) {}
   };
 
