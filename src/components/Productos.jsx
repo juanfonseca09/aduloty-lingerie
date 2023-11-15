@@ -18,6 +18,7 @@ export const Productos = () => {
   const { categorie } = location.state || {};
 
   useEffect(() => {
+    setIsLoading(true);
     const getProducts = async () => {
       try {
         let res;
