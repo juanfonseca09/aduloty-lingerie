@@ -36,8 +36,9 @@ export const CheckOut = () => {
     setTotal(cart.total);
     const searchParams = new URLSearchParams(location.search);
     const status = searchParams.get("status");
+    // if (status === null) navigate("/checkout");
     if (status != null) {
-      const orderid = searchParams.get("orderid");
+      const orderid = searchParams.get("external_reference");
       const paymentId = searchParams.get("payment_id");
       const merchantOrderId = searchParams.get("merchant_order_id");
       dispatch(setOrderId(orderid));
