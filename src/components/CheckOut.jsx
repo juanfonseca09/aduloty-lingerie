@@ -43,7 +43,7 @@ export const CheckOut = () => {
       const paymentId = searchParams.get("payment_id");
       const merchantOrderId = searchParams.get("merchant_order_id");
       dispatch(setOrderId(orderid));
-      updateOrder(status, paymentId, merchantOrderId);
+      updateOrder(status, paymentId, merchantOrderId, orderid);
       if (status == "approved") {
         updateProduct();
         Swal.fire({
@@ -153,14 +153,14 @@ export const CheckOut = () => {
     } catch (error) {}
   };
 
-  const updateOrder = async (d1, d2, d3) => {
+  const updateOrder = async (d1, d2, d3, id) => {
     const upOrder = {
       estatus: d1,
       payid: d2,
        merchant_order_id: d3,
     }
     try {
-      await axios.put("/orders/" + cart.orderId, upOrder);
+      await axios.put("/orders/" + cart.id, upOrder);
     } catch (error) {}
   };
   const handleSubmit = async (e) => {
