@@ -15,12 +15,14 @@ export const Inicio = () => {
   const [products, setProducts] = useState([]);
   const videoRef = useRef(null);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
         const res = await axios.get('/products?categories="destacado"');
         setProducts(res.data);
+        setIsLoading(false);
       } catch (err) {
       }
     };
@@ -132,7 +134,24 @@ export const Inicio = () => {
           </div>
           <Container>
             <Row>
-              <ProductsList products={products} />
+            {isLoading ? (
+                <Audio
+                height={80}
+                width={80}
+                radius={9}
+                color="#FB75C7"
+                ariaLabel="loading"
+                wrapperStyle={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              />
+              ) : (
+                <ProductsList
+                  products={products}
+                />
+              )}
             </Row>
             <Link to="/productos">
               <div className="row justify-content-center mt-5">
