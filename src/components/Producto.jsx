@@ -49,6 +49,10 @@ export const Producto = () => {
           setPmayor(true);
           setQuantity(10);
         }
+        if (res.data.categories.includes("Preventa Accesorios Originales")) { 
+          setSize("Accesorio")
+          setSizeQuantity(1);
+        }
         if (res.data.images && res.data.images.length > 0) {
           setProductImage(
             <img
@@ -63,8 +67,9 @@ export const Producto = () => {
           );
           setLoading(false);
         }
-        const res2 = await axios.get(`/products?categories=${cat}&limit=4`);
-        setFiltered(res2.data);
+        const res2 = await axios.get(`/products?categories=${cat}&limit=5`);
+        const filteredProducts = res2.data.filter((p) => p._id !== id);
+        setFiltered(filteredProducts);
       } catch (error) {}
     };
     getProduct();
@@ -113,7 +118,8 @@ export const Producto = () => {
               <h1>{product.title}</h1>
               <p>{product.desc}</p>
               <h3>${product.price}</h3>
-              {product.images && product.images.length > 0 ? (
+              {size != "Accesorio" && (
+              product.images && product.images.length > 0 ? (
                 product.images[code].colors[0].sizes.some(
                   (s) => s.quantity > 0
                 ) ? (
@@ -146,8 +152,8 @@ export const Producto = () => {
                 ) : (
                   <p>Sin Stock</p>
                 )
-              ) : null}
-
+              ) : null
+              )}
               <a onClick={handleShow} type="button" className="mb-3 fw-lighter">
                 (Ver Guia de Talles)
               </a>
