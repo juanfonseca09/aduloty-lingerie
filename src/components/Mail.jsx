@@ -21,22 +21,15 @@ export const Mail = () => {
   }, [cart.orderId]);
 
   return (
-    <>
-      <div className="vh-100 my-auto">
-        <Audio
-          height={80}
-          width={80}
-          radius={9}
-          color="#FB75C7"
-          ariaLabel="loading"
-          wrapperStyle={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        />
-      </div>
+    <div className="vh-100 d-flex align-items-center justify-content-center">
+      <Audio
+        height={130}
+        width={130}
+        radius={11}
+        color="#FB75C7"
+        ariaLabel="loading"
+      />
       <div className="d-none">{orderLoaded && <Send order={order} />}</div>
-    </>
+    </div>
   );
-};
+}  
