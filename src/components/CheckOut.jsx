@@ -81,6 +81,7 @@ export const CheckOut = () => {
       unit_price: product.price,
       quantity: product.quantity,
     }));
+    console.log(ordid);
     const orderid = ordid;
     try {
       const response = await axios.post("/checkout/create_preference", { items, orderid });
