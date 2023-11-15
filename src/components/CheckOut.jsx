@@ -74,17 +74,16 @@ export const CheckOut = () => {
     }
   }, []);
 
-  const createPreference = async () => {
+  const createPreference = async (id) => {
     const items = cart.products.map((product) => ({
       title: product.title,
       unit_price: product.price,
       quantity: product.quantity,
     }));
-    const orderid = await sendOrderDataToServer();
+    const orderid = id;
     try {
       const response = await axios.post("/checkout/create_preference", { items, orderid });
-      const { id } = response.data;
-      return id;
+      setPreferenceId(response.data.id);
     } catch (error) {
       console.log(error);
     }
@@ -168,15 +167,12 @@ export const CheckOut = () => {
     e.preventDefault();
     setValidated(true);
     if (formData.checkValidity()) {
-      sendOrderDataToServer();
       if (btn === "mercadoPago") {
-        const id = await createPreference();
-        if (id) {
-          setPreferenceId(id);
-        }
+        sendOrderDataToServer(true);
       }
       setBtn2(false);
       if (btn === "debitoBancario") {
+        sendOrderDataToServer(false);
         updateProduct();
         Swal.fire({
           position: "center",
@@ -193,7 +189,7 @@ export const CheckOut = () => {
     }
   };
 
-  const sendOrderDataToServer = async () => {
+  const sendOrderDataToServer = async (pp) => {
     const items = cart.products.map((product) => ({
       title: product.title,
       image: product.images[product.code].url,
@@ -219,8 +215,7 @@ export const CheckOut = () => {
     try {
       const res = await axios.post("/orders", orderData);
       dispatch(setOrderId(res.data._id));
-      const { id } = res.data._id;
-      return id;
+      createPreference(res.data._id);
     } catch (error) {}
   };
 
