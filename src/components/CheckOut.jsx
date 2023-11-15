@@ -27,7 +27,6 @@ export const CheckOut = () => {
   const [btn, setBtn] = useState("");
   const [envio, setEnvio] = useState("");
   const [btn2, setBtn2] = useState(true);
-  const [ordid, setOrdid] = useState('');
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -37,7 +36,6 @@ export const CheckOut = () => {
     setTotal(cart.total);
     const searchParams = new URLSearchParams(location.search);
     const status = searchParams.get("status");
-    // if (status === null) navigate("/checkout");
     if (status != null) {
       const orderid = searchParams.get("external_reference");
       const paymentId = searchParams.get("payment_id");
@@ -74,24 +72,6 @@ export const CheckOut = () => {
       }
     }
   }, []);
-
-  const createPreference = async () => {
-    const items = cart.products.map((product) => ({
-      title: product.title,
-      unit_price: product.price,
-      quantity: product.quantity,
-    }));
-    console.log(ordid);
-    const orderid = ordid;
-    try {
-      const response = await axios.post("/checkout/create_preference", { items, orderid });
-      const { id } = response.data;
-      return id;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  
 
   const updateProduct = async () => {
     try {
@@ -170,15 +150,15 @@ export const CheckOut = () => {
     e.preventDefault();
     setValidated(true);
     if (formData.checkValidity()) {
-      sendOrderDataToServer();
       if (btn === "mercadoPago") {
-        const id = await createPreference();
+        const id = await sendOrderDataToServer(true);;
         if (id) {
           setPreferenceId(id);
         }
       }
       setBtn2(false);
       if (btn === "debitoBancario") {
+        sendOrderDataToServer(false);
         updateProduct();
         Swal.fire({
           position: "center",
@@ -220,8 +200,21 @@ export const CheckOut = () => {
     };
     try {
       const res = await axios.post("/orders", orderData);
-      setOrdid(res.data._id);
       dispatch(setOrderId(res.data._id));
+      if(tp){
+        const items = cart.products.map((product) => ({
+          title: product.title,
+          unit_price: product.price,
+          quantity: product.quantity,
+        }));
+        const orderid = res.data._id;
+        try {
+          const response = await axios.post("/checkout/create_preference", { items, orderid });
+          const { id } = response.data;
+          return id;
+        } catch (error) {
+        }
+      }
     } catch (error) {}
   };
 
