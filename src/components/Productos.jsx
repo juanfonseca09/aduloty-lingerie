@@ -20,8 +20,17 @@ export const Productos = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get(`/products?page=${currentPage}&limit=8&sort=${sort}&category=${cat}`);
-        setProducts((prevProducts) => (currentPage === 1 ? res.data : [...prevProducts, ...res.data]));
+        let res;
+        cat === ""
+          ? (res = await axios.get(
+              `/products?page=${currentPage}&limit=8&sort=${sort}`
+            ))
+          : (res = await axios.get(
+              `/products?page=${currentPage}&limit=8&sort=${sort}&category=${cat}`
+            ));
+        setProducts((prevProducts) =>
+          currentPage === 1 ? res.data : [...prevProducts, ...res.data]
+        );
         setIsLoading(false);
         setShowMoreButton(res.data.length % 8 === 0);
       } catch (err) {
@@ -35,7 +44,7 @@ export const Productos = () => {
       getProducts();
     }
   }, [currentPage, cat, sort]);
-  
+
   const loadMoreProducts = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
@@ -70,41 +79,85 @@ export const Productos = () => {
                   </div>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setCat(null)}}>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setCat("");
+                      }}
+                    >
                       Todas
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setCat("Victoria's Secret")}}>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setCat("Victoria's Secret");
+                      }}
+                    >
                       Victoria's Secret
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setCat("Lencería")}}>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setCat("Lencería");
+                      }}
+                    >
                       Lencería
                     </Dropdown.Item>
                     <Dropdown.Item
-                      onClick={() => {setProducts([]); setCurrentPage(1); setCat("Preventa Accesorios Originales")}}
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setCat("Preventa Accesorios Originales");
+                      }}
                     >
                       Preventa Accesorios Originales
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setCat("Indumentaria")}}>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setCat("Indumentaria");
+                      }}
+                    >
                       Indumentaria
                     </Dropdown.Item>
                     <Dropdown.Item
-                      onClick={() => {setProducts([]); setCurrentPage(1); setCat("Indumentaria Original")}}
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setCat("Indumentaria Original");
+                      }}
                     >
                       Indumentaria Original
                     </Dropdown.Item>
                     <Dropdown.Item disabled={true}>Por Mayor:</Dropdown.Item>
                     <Dropdown.Item
-                      onClick={() => {setProducts([]); setCurrentPage(1); setCat("Prendas SHEIN(Por Mayor)")}}
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setCat("Prendas SHEIN(Por Mayor)");
+                      }}
                     >
                       Prendas SHEIN
                     </Dropdown.Item>
                     <Dropdown.Item
-                      onClick={() => {setProducts([]); setCurrentPage(1); setCat("Accesorios Originales(Por Mayor)")}}
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setCat("Accesorios Originales(Por Mayor)");
+                      }}
                     >
                       Accesorios Originales
                     </Dropdown.Item>
                     <Dropdown.Item
-                      onClick={() => {setProducts([]); setCurrentPage(1); setCat("Indumentaria Original(Por Mayor)")}}
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setCat("Indumentaria Original(Por Mayor)");
+                      }}
                     >
                       Indumentaria Original
                     </Dropdown.Item>
@@ -125,13 +178,31 @@ export const Productos = () => {
                   </div>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setSort("newest")}}>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setSort("newest");
+                      }}
+                    >
                       Mas Nuevo
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setSort("asc")}}>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setSort("asc");
+                      }}
+                    >
                       Precio: - a +
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setSort("desc")}}>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setSort("desc");
+                      }}
+                    >
                       Precio: + a -
                     </Dropdown.Item>
                   </Dropdown.Menu>
@@ -139,21 +210,19 @@ export const Productos = () => {
               </div>
               {isLoading ? (
                 <Audio
-                height={80}
-                width={80}
-                radius={9}
-                color="#FB75C7"
-                ariaLabel="loading"
-                wrapperStyle={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              />
-              ) : (
-                <ProductsList
-                  products={products}
+                  height={80}
+                  width={80}
+                  radius={9}
+                  color="#FB75C7"
+                  ariaLabel="loading"
+                  wrapperStyle={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 />
+              ) : (
+                <ProductsList products={products} />
               )}
               {showMoreButton && (
                 <div className="d-flex justify-content-center py-4">
