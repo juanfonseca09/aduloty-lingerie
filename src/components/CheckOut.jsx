@@ -215,7 +215,7 @@ export const CheckOut = () => {
     try {
       const res = await axios.post("/orders", orderData);
       dispatch(setOrderId(res.data._id));
-      createPreference(res.data._id);
+      await createPreference(res.data._id);
     } catch (error) {}
   };
 
