@@ -1,21 +1,26 @@
 import { useSelector } from "react-redux";
 import { Send } from "./Send";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { resetCart } from "../redux/store";
 import axios from "../axiosInstance";
 import { Audio } from "react-loader-spinner";
 
 export const Mail = () => {
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const [order, setOrder] = useState({});
-  const [orderLoaded, setOrderLoaded] = useState(false);
+  const [orderLoaded, setOrderLoaded] = useState(false); 
 
   useEffect(() => {
     const getOrder = async () => {
       try {
-        const res = await axios.get("/orders/" + cart.orderId);
+        const res = await axios.get("/orders/"+ cart.orderId);
         setOrder(res.data);
-        setOrderLoaded(true);
-      } catch (err) {}
+        setOrderLoaded(true); 
+        dispatch(resetCart());
+      } catch (err) {
+      }
     };
     getOrder();
   }, [cart.orderId]);
@@ -32,4 +37,4 @@ export const Mail = () => {
       <div className="d-none">{orderLoaded && <Send order={order} />}</div>
     </div>
   );
-}  
+};

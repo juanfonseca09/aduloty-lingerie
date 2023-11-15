@@ -32,6 +32,7 @@ export const CheckOut = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (cart.total === 0) navigate("/inicio");
     initMercadoPago(import.meta.env.VITE_INIT_MP);
     setTotal(cart.total);
     const searchParams = new URLSearchParams(location.search);
@@ -40,7 +41,7 @@ export const CheckOut = () => {
       const paymentId = searchParams.get("payment_id");
       const merchantOrderId = searchParams.get("merchant_order_id");
       updateOrder(status, paymentId, merchantOrderId);
-      if (status == "approved" || status == "pending") {
+      if (status == "approved") {
         updateProduct();
         Swal.fire({
           position: "center",
