@@ -185,7 +185,25 @@ export const Productos = () => {
                         setSort("newest");
                       }}
                     >
-                      Mas Nuevo
+                      Nuevo
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setSort("az");
+                      }}
+                    >
+                      A - Z
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setProducts([]);
+                        setCurrentPage(1);
+                        setSort("za");
+                      }}
+                    >
+                      Z - A
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
