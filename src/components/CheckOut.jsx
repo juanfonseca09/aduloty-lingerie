@@ -36,7 +36,7 @@ export const CheckOut = () => {
     setTotal(cart.total);
     const searchParams = new URLSearchParams(location.search);
     const status = searchParams.get("status");
-    // if (status === null) navigate("/checkout");
+    if (status === null) navigate("/checkout");
     if (status != null) {
       const orderid = searchParams.get("external_reference");
       const paymentId = searchParams.get("payment_id");
@@ -53,9 +53,9 @@ export const CheckOut = () => {
           showConfirmButton: false,
           timer: 5000,
         });
-        // setTimeout(() => {
-        //   navigate("/mail");
-        // }, 4500);
+        setTimeout(() => {
+          navigate("/mail");
+        }, 4500);
       } else if (status == "declined") {
         Swal.fire({
           position: "center",
@@ -74,19 +74,18 @@ export const CheckOut = () => {
     }
   }, []);
 
-  const createPreference = async (ide) => {
+  const createPreference = async () => {
     const items = cart.products.map((product) => ({
       title: product.title,
       unit_price: product.price,
       quantity: product.quantity,
     }));
-    const orderid = ide;
+    const orderid = cart.orderId;
     try {
       const response = await axios.post("/checkout/create_preference", { items, orderid });
       const { id } = response.data;
       return id;
     } catch (error) {
-      console.log(error);
     }
   };
   
@@ -168,12 +167,15 @@ export const CheckOut = () => {
     e.preventDefault();
     setValidated(true);
     if (formData.checkValidity()) {
+      await sendOrderDataToServer();
       if (btn === "mercadoPago") {
-        sendOrderDataToServer(true);
+        const id = await createPreference();
+        if (id) {
+          setPreferenceId(id);
+        }
       }
       setBtn2(false);
       if (btn === "debitoBancario") {
-        sendOrderDataToServer(false);
         updateProduct();
         Swal.fire({
           position: "center",
@@ -190,7 +192,7 @@ export const CheckOut = () => {
     }
   };
 
-  const sendOrderDataToServer = async (pp) => {
+  const sendOrderDataToServer = async () => {
     const items = cart.products.map((product) => ({
       title: product.title,
       image: product.images[product.code].url,
@@ -216,8 +218,6 @@ export const CheckOut = () => {
     try {
       const res = await axios.post("/orders", orderData);
       dispatch(setOrderId(res.data._id));
-      const ordid = await createPreference(res.data._id);
-      setPreferenceId(ordid);
     } catch (error) {}
   };
 
