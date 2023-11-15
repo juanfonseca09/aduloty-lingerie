@@ -21,11 +21,9 @@ export const Inicio = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get('/products?category="Lencería"');
-        if (res.data && res.data.length > 0) {
-          setProducts(res.data);
-          setIsLoading(false);
-        } 
+        const res = await axios.get('/products?category="Lencería"&sort=""');
+        setProducts(res.data);
+        setIsLoading(false);
       } catch (err) {
       }
     };
