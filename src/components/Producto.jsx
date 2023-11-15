@@ -49,8 +49,8 @@ export const Producto = () => {
           setPmayor(true);
           setQuantity(10);
         }
-        if (res.data.categories.includes("Preventa Accesorios Originales")) { 
-          setSize("Accesorio")
+        if (res.data.categories.includes("Preventa Accesorios Originales")) {
+          setSize("Accesorio");
           setSizeQuantity(1);
         }
         if (res.data.images && res.data.images.length > 0) {
@@ -98,18 +98,15 @@ export const Producto = () => {
           <Row>
             <Col md={6}>
               {loading ? (
-                <Audio
-                  height={80}
-                  width={80}
-                  radius={9}
-                  color="#FB75C7"
-                  ariaLabel="loading"
-                  wrapperStyle={{
-                    display: "flex",
-                    justifyContent: "center",
-                    margin: "auto",
-                  }}
-                />
+                <div className="d-flex align-items-center justify-content-center">
+                  <Audio
+                    height={80}
+                    width={80}
+                    radius={9}
+                    color="#FB75C7"
+                    ariaLabel="loading"
+                  />
+                </div>
               ) : (
                 <div className="img-wrapper">{productImage}</div>
               )}
@@ -118,42 +115,43 @@ export const Producto = () => {
               <h1>{product.title}</h1>
               <p>{product.desc}</p>
               <h3>${product.price}</h3>
-              {size != "Accesorio" && (
-              product.images && product.images.length > 0 ? (
-                product.images[code].colors[0].sizes.some(
-                  (s) => s.quantity > 0
-                ) ? (
-                  <Dropdown>
-                    <Dropdown.Toggle
-                      variant="light"
-                      className="btn-custom mb-2"
-                      id="dropdown-basic"
-                    >
-                      {size}
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu>
-                      {product.images[code].colors[0].sizes.map((s, index) => {
-                        if (s.quantity > 0) {
-                          return (
-                            <Dropdown.Item
-                              onClick={() => {
-                                setSize(s.size);
-                                setSizeQuantity(s.quantity);
-                              }}
-                              key={s._id}
-                            >
-                              {s.size}
-                            </Dropdown.Item>
-                          );
-                        }
-                      })}
-                    </Dropdown.Menu>
-                  </Dropdown>
-                ) : (
-                  <p>Sin Stock</p>
-                )
-              ) : null
-              )}
+              {size != "Accesorio" &&
+                (product.images && product.images.length > 0 ? (
+                  product.images[code].colors[0].sizes.some(
+                    (s) => s.quantity > 0
+                  ) ? (
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        variant="light"
+                        className="btn-custom mb-2"
+                        id="dropdown-basic"
+                      >
+                        {size}
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        {product.images[code].colors[0].sizes.map(
+                          (s, index) => {
+                            if (s.quantity > 0) {
+                              return (
+                                <Dropdown.Item
+                                  onClick={() => {
+                                    setSize(s.size);
+                                    setSizeQuantity(s.quantity);
+                                  }}
+                                  key={s._id}
+                                >
+                                  {s.size}
+                                </Dropdown.Item>
+                              );
+                            }
+                          }
+                        )}
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  ) : (
+                    <p>Sin Stock</p>
+                  )
+                ) : null)}
               <a onClick={handleShow} type="button" className="mb-3 fw-lighter">
                 (Ver Guia de Talles)
               </a>
