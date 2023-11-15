@@ -95,6 +95,7 @@ export const CheckOut = () => {
     try {
       const res = await axios.get(`/orders/${id}`)
       const products = res.data.products;
+      console.log(products);
       for (const product of products) {
         let sizeIndex = 0;
         switch (product.size) {
@@ -191,9 +192,9 @@ export const CheckOut = () => {
             timer: 5000,
           });
   
-          setTimeout(() => {
-            navigate("/mail");
-          }, 5000);
+          // setTimeout(() => {
+          //   navigate("/mail");
+          // }, 5000);
         }
       } catch (error) {
       }
