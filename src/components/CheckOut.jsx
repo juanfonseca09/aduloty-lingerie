@@ -93,7 +93,7 @@ export const CheckOut = () => {
 
   const updateProduct = async (id) => {
     try {
-      const res = await axios.get(`/order/${id}`)
+      const res = await axios.get(`/orders/${id}`)
       const products = res.data.products;
       for (const product of products) {
         let sizeIndex = 0;
