@@ -6,7 +6,7 @@ import axios from "../axiosInstance";
 import { addProduct } from "../redux/store";
 import { useDispatch } from "react-redux";
 import { ProductsList } from "./ProductsList";
-import { FaPlus, FaMinus, FaCircle } from "react-icons/fa";
+import { FaPlus, FaMinus } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { Audio } from "react-loader-spinner";
 
@@ -36,7 +36,7 @@ export const Producto = () => {
       try {
         const res = await axios.get(`/products/find/${id}`);
         setProduct(res.data);
-        setCat(res.data.categories[0])
+        setCat(res.data.categories[0]);
         setColor(res.data.images[code].colors[0].color);
         if (res.data.categories.includes("Unico Color")) setUnique(true);
         if (
@@ -157,10 +157,7 @@ export const Producto = () => {
                   {product.images && product.images.length > 0
                     ? product.images.map((c, index) => (
                         <img
-                          src={
-                            axios.defaults.baseURL +
-                            `/get-image/${c.url}`
-                          }
+                          src={axios.defaults.baseURL + `/get-image/${c.url}`}
                           alt="pro"
                           key={index}
                           className="img-icons"
@@ -169,8 +166,7 @@ export const Producto = () => {
                             setProductImage(
                               <img
                                 src={
-                                  axios.defaults.baseURL +
-                                  `/get-image/${c.url}`
+                                  axios.defaults.baseURL + `/get-image/${c.url}`
                                 }
                                 alt="prod"
                                 className="img-fluid p-5"
@@ -188,7 +184,11 @@ export const Producto = () => {
                   <div className="d-flex mb-4">
                     {product.images && product.images.length > 0
                       ? product.images.map((c, index) => (
-                          <FaCircle
+                          <img
+                            src={axios.defaults.baseURL + `/get-image/${c.url}`}
+                            alt="pro"
+                            className="img-icons"
+                            crossOrigin="anonymous"
                             key={c.colors[0].color}
                             size={30}
                             onClick={() => {
@@ -197,10 +197,6 @@ export const Producto = () => {
                               setSize("Talle");
                               setQuantity(1);
                               setSizeQuantity(0);
-                            }}
-                            style={{
-                              color: c.colors[0].color,
-                              marginRight: "1vh",
                             }}
                           />
                         ))
