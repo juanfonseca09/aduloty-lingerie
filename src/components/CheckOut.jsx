@@ -45,7 +45,6 @@ export const CheckOut = () => {
       dispatch(setOrderId(orderid));
       updateOrder(status, paymentId, merchantOrderId, orderid);
       if (status == "approved") {
-        updateProduct(orderid);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -56,7 +55,7 @@ export const CheckOut = () => {
         });
         setTimeout(() => {
           navigate("/mail");
-        }, 4500);
+        }, 5000);
       } else if (status == "declined") {
         Swal.fire({
           position: "center",
@@ -91,12 +90,9 @@ export const CheckOut = () => {
   };
   
 
-  const updateProduct = async (id) => {
+  const updateProduct = async () => {
     try {
-      const res = await axios.get(`/orders/${id}`)
-      const products = res.data.products;
-      console.log(products);
-      for (const product of products) {
+      for (const product of cart.products) {
         let sizeIndex = 0;
         switch (product.size) {
           case "XS":
@@ -174,6 +170,7 @@ export const CheckOut = () => {
       try {
         const ordId = await sendOrderDataToServer();
         setOrdid(ordId); 
+        updateProduct();
         if (btn === "mercadoPago") {
           const id = await createPreference(ordId);
           if (id) {
@@ -182,7 +179,6 @@ export const CheckOut = () => {
         }
         setBtn2(false);
         if (btn === "debitoBancario") {
-          updateProduct(ordId);
           Swal.fire({
             position: "center",
             icon: "success",
