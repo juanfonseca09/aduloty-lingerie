@@ -45,7 +45,7 @@ export const CheckOut = () => {
       dispatch(setOrderId(orderid));
       updateOrder(status, paymentId, merchantOrderId, orderid);
       if (status == "approved") {
-        updateProduct();
+        updateProduct(orderid);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -67,7 +67,7 @@ export const CheckOut = () => {
         });
         const deleteOrder = async () => {
           try {
-            await axios.delete("/orders/" + cart.orderId);
+            await axios.delete("/orders/" + orderid);
           } catch (error) {}
         };
         deleteOrder();
@@ -91,9 +91,11 @@ export const CheckOut = () => {
   };
   
 
-  const updateProduct = async () => {
+  const updateProduct = async (id) => {
     try {
-      for (const product of cart.products) {
+      const res = await axios.get(`/order/${id}`)
+      const products = res.data.products;
+      for (const product of products) {
         let sizeIndex = 0;
         switch (product.size) {
           case "XS":
@@ -160,7 +162,7 @@ export const CheckOut = () => {
        merchant_order_id: d3,
     }
     try {
-      await axios.put("/orders/" + cart.id, upOrder);
+      await axios.put("/orders/" + id, upOrder);
     } catch (error) {}
   };
   const handleSubmit = async (e) => {
@@ -171,18 +173,15 @@ export const CheckOut = () => {
       try {
         const ordId = await sendOrderDataToServer();
         setOrdid(ordId); 
-  
         if (btn === "mercadoPago") {
           const id = await createPreference(ordId);
           if (id) {
             setPreferenceId(id);
           }
         }
-  
         setBtn2(false);
-  
         if (btn === "debitoBancario") {
-          updateProduct();
+          updateProduct(ordId);
           Swal.fire({
             position: "center",
             icon: "success",
@@ -194,7 +193,7 @@ export const CheckOut = () => {
   
           setTimeout(() => {
             navigate("/mail");
-          }, 4500);
+          }, 5000);
         }
       } catch (error) {
       }
