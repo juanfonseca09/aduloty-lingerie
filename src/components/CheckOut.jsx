@@ -32,7 +32,6 @@ export const CheckOut = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (cart.total === 0) navigate("/inicio");
     initMercadoPago(import.meta.env.VITE_INIT_MP);
     setTotal(cart.total);
     const searchParams = new URLSearchParams(location.search);
@@ -216,6 +215,7 @@ export const CheckOut = () => {
     try {
       const res = await axios.post("/orders", orderData);
       dispatch(setOrderId(res.data._id));
+      localStorage.setItem("orderid",res.data._id);
     } catch (error) {}
   };
 
