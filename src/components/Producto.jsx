@@ -67,7 +67,7 @@ export const Producto = () => {
           );
           setLoading(false);
         }
-        const res2 = await axios.get(`/products?categories=${cat}&limit=4`);
+        const res2 = await axios.get(`/products?&category=${cat}&limit=4`);
         const filteredProducts = res2.data.filter((p) => p._id !== id);
         setFiltered(filteredProducts);
       } catch (error) {}
