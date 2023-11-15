@@ -70,7 +70,7 @@ export const Productos = () => {
                   </div>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setCat("")}}>
+                    <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setCat(null)}}>
                       Todas
                     </Dropdown.Item>
                     <Dropdown.Item onClick={() => {setProducts([]); setCurrentPage(1); setCat("Victoria's Secret")}}>
