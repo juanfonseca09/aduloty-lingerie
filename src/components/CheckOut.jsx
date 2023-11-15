@@ -37,8 +37,10 @@ export const CheckOut = () => {
     const searchParams = new URLSearchParams(location.search);
     const status = searchParams.get("status");
     if (status != null) {
+      const orderid = searchParams.get("orderid");
       const paymentId = searchParams.get("payment_id");
       const merchantOrderId = searchParams.get("merchant_order_id");
+      dispatch(setOrderId(orderid));
       updateOrder(status, paymentId, merchantOrderId);
       if (status == "approved") {
         updateProduct();
@@ -50,9 +52,9 @@ export const CheckOut = () => {
           showConfirmButton: false,
           timer: 5000,
         });
-        setTimeout(() => {
-          navigate("/mail");
-        }, 4500);
+        // setTimeout(() => {
+        //   navigate("/mail");
+        // }, 4500);
       } else if (status == "declined") {
         Swal.fire({
           position: "center",
@@ -77,8 +79,9 @@ export const CheckOut = () => {
       unit_price: product.price,
       quantity: product.quantity,
     }));
+    const orderid = cart.orderId;
     try {
-      const response = await axios.post("/checkout/create_preference", { items });
+      const response = await axios.post("/checkout/create_preference", { items, orderid });
       const { id } = response.data;
       return id;
     } catch (error) {
@@ -215,7 +218,6 @@ export const CheckOut = () => {
     try {
       const res = await axios.post("/orders", orderData);
       dispatch(setOrderId(res.data._id));
-      localStorage.setItem("orderid",res.data._id);
     } catch (error) {}
   };
 
