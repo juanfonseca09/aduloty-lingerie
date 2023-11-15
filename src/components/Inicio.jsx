@@ -22,7 +22,7 @@ export const Inicio = () => {
     const getProducts = async () => {
       try {
         const cat = "Lencería";
-        const res = await axios.get(`/products?categories=${cat}&limit=8`);
+        const res = await axios.get(`/products?&category=${cat}&limit=8`);
         setProducts(res.data);
         setIsLoading(false);
       } catch (err) {
