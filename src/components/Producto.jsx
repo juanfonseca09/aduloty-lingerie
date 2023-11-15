@@ -107,7 +107,7 @@ export const Producto = () => {
                   wrapperStyle={{
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center",
+                    margin: "auto",
                   }}
                 />
               ) : (

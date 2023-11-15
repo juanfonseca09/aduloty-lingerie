@@ -22,7 +22,7 @@ export const Mail = () => {
 
   return (
     <>
-      <div className="vh-100">
+      <div className="vh-100 my-auto">
         <Audio
           height={80}
           width={80}
