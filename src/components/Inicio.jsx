@@ -9,6 +9,7 @@ import { ProductsList } from "./ProductsList";
 import { useEffect } from "react";
 import axios from '../axiosInstance';
 import { Buscador } from "./Buscador";
+import { Audio } from "react-loader-spinner";
 
 export const Inicio = () => {
   const [isSoundEnabled, setIsSoundEnabled] = useState(true);
