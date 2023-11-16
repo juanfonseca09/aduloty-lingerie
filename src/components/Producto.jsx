@@ -21,7 +21,6 @@ export const Producto = () => {
   const [productImage, setProductImage] = useState(null);
   const [pmayor, setPmayor] = useState(false);
   const [code, setCode] = useState(0);
-  const [cat, setCat] = useState("");
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,7 +35,6 @@ export const Producto = () => {
       try {
         const res = await axios.get(`/products/find/${id}`);
         setProduct(res.data);
-        setCat(res.data.categories[0]);
         setColor(res.data.images[code].colors[0].color);
         if (res.data.categories.includes("Unico Color")) setUnique(true);
         if (
@@ -67,7 +65,7 @@ export const Producto = () => {
           );
           setLoading(false);
         }
-        const res2 = await axios.get(`/products?&category=${cat}&limit=4`);
+        const res2 = await axios.get(`/products?&category=${res.data.categories[0]}&limit=5`);
         const filteredProducts = res2.data.filter((p) => p._id !== id);
         setFiltered(filteredProducts);
       } catch (error) {}
