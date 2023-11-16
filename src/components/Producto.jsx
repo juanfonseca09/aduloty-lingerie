@@ -67,7 +67,7 @@ export const Producto = () => {
         }
         let cat = "";
         (res.data.categories[0] = "Unico Color") ? cat = res.data.categories[1] : cat = res.data.categories[0];
-        const res2 = await axios.get(`/products?&category=${cat}&limit=5`);
+        const res2 = await axios.get(`/products?&category=${cat}&limit=4`);
         const filteredProducts = res2.data.filter((p) => p._id !== id);
         setFiltered(filteredProducts);
       } catch (error) {}
