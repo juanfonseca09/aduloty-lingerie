@@ -65,7 +65,9 @@ export const Producto = () => {
           );
           setLoading(false);
         }
-        const res2 = await axios.get(`/products?&category=${res.data.categories[0]}&limit=5`);
+        let cat = "";
+        (res.data.categories[0] = "Unico Color") ? cat = res.data.categories[1] : cat = res.data.categories[0];
+        const res2 = await axios.get(`/products?&category=${cat}&limit=5`);
         const filteredProducts = res2.data.filter((p) => p._id !== id);
         setFiltered(filteredProducts);
       } catch (error) {}
