@@ -27,7 +27,6 @@ export const CheckOut = () => {
   const [btn, setBtn] = useState("");
   const [envio, setEnvio] = useState("");
   const [btn2, setBtn2] = useState(true);
-  const [ordid, setOrdid] = useState('');
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -138,7 +137,6 @@ export const CheckOut = () => {
             sizeIndex = -1;
             break;
         }
-
         if (sizeIndex !== -1) {
           const sizeQuantity =
             product.images[product.code].colors[0].sizes[sizeIndex].quantity;
@@ -168,8 +166,7 @@ export const CheckOut = () => {
     setValidated(true);
     if (formData.checkValidity()) {
       try {
-        const ordId = await sendOrderDataToServer();
-        setOrdid(ordId); 
+        const ordId = await sendOrderDataToServer(); 
         updateProduct();
         if (btn === "mercadoPago") {
           const id = await createPreference(ordId);
@@ -204,6 +201,7 @@ export const CheckOut = () => {
       color: product.color,
       size: product.size,
       quantity: product.quantity,
+      code: product.code,
     }));
     const orderData = {
       products: items,
