@@ -66,7 +66,9 @@ export const Producto = () => {
           setLoading(false);
         }
         let cat = "";
-        (res.data.categories[0] = "Unico Color") ? cat = res.data.categories[1] : cat = res.data.categories[0];
+        (res.data.categories[0] = "Unico Color")
+          ? (cat = res.data.categories[1])
+          : (cat = res.data.categories[0]);
         const res2 = await axios.get(`/products?&category=${cat}&limit=4`);
         const filteredProducts = res2.data.filter((p) => p._id !== id);
         setFiltered(filteredProducts);
@@ -240,14 +242,14 @@ export const Producto = () => {
                 </Button>
               </div>
             </Col>
-            {filtered != [] && 
-            <div className="otros d-flex flex-column align-items-center">
-              <h2 className="text-center">Productos Relacionados</h2>
-              <div className="d-flex flex-wrap justify-content-center p-3">
-                <ProductsList products={filtered} />
+            {filtered.length > 0 && (
+              <div className="otros d-flex flex-column align-items-center">
+                <h2 className="text-center">Productos Relacionados</h2>
+                <div className="d-flex flex-wrap justify-content-center p-3">
+                  <ProductsList products={filtered} />
+                </div>
               </div>
-            </div>
-            }
+            )}
           </Row>
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
