@@ -26,9 +26,8 @@ export const Send = ({ order }) => {
         }
       try {
         await axios.post("/send-mail", mailToSend);
-        // window.location.href = "https://adulotylingerie.com.uy";
+        window.location.href = "https://adulotylingerie.com.uy";
       } catch (error) {
-        console.log(error)
       }
     };
     sendEmail();
