@@ -82,54 +82,66 @@ export const Productos = () => {
                   <Dropdown.Menu>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setCat("");
+                        if(cat != ""){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setCat("");
+                        }
                       }}
                     >
                       Todas
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setCat("Victoria's Secret");
+                        if(cat != "Victoria's Secret"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setCat("Victoria's Secret");
+                        }
                       }}
                     >
                       Victoria's Secret
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setCat("Lencería");
+                        if(cat != "Lencería"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setCat("Lencería");
+                        }
                       }}
                     >
                       Lencería
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setCat("Preventa Accesorios Originales");
+                        if(cat != "Preventa Accesorios Originales"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setCat("Preventa Accesorios Originales");
+                        }
                       }}
                     >
                       Preventa Accesorios Originales
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setCat("Indumentaria");
+                        if(cat != "Indumentaria"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setCat("Indumentaria");
+                        }
                       }}
                     >
                       Indumentaria
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setCat("Indumentaria Original");
+                        if(cat != "Indumentaria Original"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setCat("Indumentaria Original");
+                        }
                       }}
                     >
                       Indumentaria Original
@@ -137,27 +149,33 @@ export const Productos = () => {
                     <Dropdown.Item disabled={true}>Por Mayor:</Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setCat("Prendas SHEIN(Por Mayor)");
+                        if(cat != "Prendas SHEIN(Por Mayor)"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setCat("Prendas SHEIN(Por Mayor)");
+                        }
                       }}
                     >
                       Prendas SHEIN
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setCat("Accesorios Originales(Por Mayor)");
+                        if(cat != "Accesorios Originales(Por Mayor)"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setCat("Accesorios Originales(Por Mayor)");
+                        }
                       }}
                     >
                       Accesorios Originales
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setCat("Indumentaria Original(Por Mayor)");
+                        if(cat != "Indumentaria Original(Por Mayor)"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setCat("Indumentaria Original(Por Mayor)");
+                          }
                       }}
                     >
                       Indumentaria Original
@@ -181,45 +199,55 @@ export const Productos = () => {
                   <Dropdown.Menu>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setSort("newest");
+                        if(sort != "newest"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setSort("newest");
+                        }
                       }}
                     >
                       Nuevo
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setSort("az");
+                        if(sort != "az"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setSort("az");
+                          }
                       }}
                     >
                       A - Z
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setSort("za");
+                        if(sort != "za"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setSort("za");
+                        }
                       }}
                     >
                       Z - A
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setSort("asc");
+                        if(sort != "asc"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setSort("asc");
+                        }
                       }}
                     >
                       Precio: - a +
                     </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
-                        setProducts([]);
-                        setCurrentPage(1);
-                        setSort("desc");
+                        if(sort != "desc"){
+                          setProducts([]);
+                          setCurrentPage(1);
+                          setSort("desc");
+                        }
                       }}
                     >
                       Precio: + a -
