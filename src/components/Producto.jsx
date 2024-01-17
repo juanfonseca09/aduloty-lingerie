@@ -240,7 +240,7 @@ export const Producto = () => {
                 </Button>
               </div>
             </Col>
-            {filtered && 
+            {filtered != [] && 
             <div className="otros d-flex flex-column align-items-center">
               <h2 className="text-center">Productos Relacionados</h2>
               <div className="d-flex flex-wrap justify-content-center p-3">
